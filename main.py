@@ -190,7 +190,9 @@ def make_hillshade(elevation: np.ndarray, meta: dict) -> None:
 # Use --annual to sweep all azimuths (best for DPSR); default uses SUN_AZIMUTH.
 
 def make_illumination(elevation: np.ndarray, meta: dict,
-                      annual: bool = False) -> np.ndarray:
+                      annual: bool = False,
+                      force_cpu: bool = False,
+                      force_gpu: bool = False) -> np.ndarray:
     if skip(ILLUMINATION_PATH):
         with rasterio.open(ILLUMINATION_PATH) as ds:
             return ds.read(1)
@@ -198,20 +200,34 @@ def make_illumination(elevation: np.ndarray, meta: dict,
     from pipeline.step_illumination import (
         compute_solar_illumination,
         compute_annual_illumination,
+        _CUDA_AVAILABLE,
     )
+
+    # Determine backend
+    if force_gpu and not _CUDA_AVAILABLE:
+        raise RuntimeError("--gpu requested but CUDA is not available.")
+    use_gpu = True  if force_gpu else \
+              False if force_cpu  else \
+              _CUDA_AVAILABLE
+
+    backend_str = "GPU (CUDA)" if use_gpu else "CPU (Numba parallel)"
 
     t0 = time.perf_counter()
     if annual:
-        print(f"  Solar shadow — annual sweep (72 azimuths, el={SUN_ELEVATION}°) …")
+        print(f"  Solar shadow — annual sweep  72 azimuths  el={SUN_ELEVATION}°"
+              f"  [{backend_str}] …")
         illum = compute_annual_illumination(
             elevation, n_azimuths=72,
             sun_el_deg=SUN_ELEVATION, cellsize=CELLSIZE, max_dist=MAX_DISTANCE,
+            use_gpu=use_gpu,
         )
     else:
-        print(f"  Solar shadow — single epoch  az={SUN_AZIMUTH}°  el={SUN_ELEVATION}° …")
+        print(f"  Solar shadow — single epoch  az={SUN_AZIMUTH}°  el={SUN_ELEVATION}°"
+              f"  [{backend_str}] …")
         illum = compute_solar_illumination(
             elevation, sun_az_deg=SUN_AZIMUTH, sun_el_deg=SUN_ELEVATION,
             cellsize=CELLSIZE, max_dist=MAX_DISTANCE,
+            use_gpu=use_gpu,
         )
 
     out_meta = meta.copy()
@@ -398,7 +414,8 @@ def main():
     make_hillshade(elevation, meta)
 
     banner("STEP 5 / 7  —  Solar Shadow Map  (physically based)")
-    illumination = make_illumination(elevation, meta, annual=args.annual)
+    illumination = make_illumination(elevation, meta, annual=args.annual,
+                                     force_cpu=args.cpu, force_gpu=args.gpu)
 
     banner("STEP 6 / 7  —  DPSR Ray-Casting")
     t6 = time.perf_counter()
