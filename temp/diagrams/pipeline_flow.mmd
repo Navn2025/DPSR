@@ -1,0 +1,56 @@
+flowchart LR
+    A1["LOLA DEM<br/>20 m/px"]
+    A2["LOLA PSR<br/>Shapefile"]
+    A3["CH2 DFSAR<br/>SLI / GRI"]
+    A4["LRO Diviner<br/>Tmean / ZIT / Pump"]
+    A5["Official CPR Mosaic<br/>Putrevu et al. 2023"]
+
+    B1["dpsr/<br/>Ray-casting + curvature<br/>correction (Eq. A4)"]
+    B2["8-connected filter<br/>less than 5px removed"]
+
+    C1["cpr/, cpr_gri/<br/>CPR = sigma_SC / sigma_OC"]
+    C2["dop/<br/>DOP = f(S1,S2,S3,S0)"]
+    C3{{"Ice-candidate test<br/>CPR greater 1 AND DOP less 0.13"}}
+
+    D1["validation/<br/>GCP georeference"]
+    D2["Pearson r, SSIM, RMSE"]
+
+    E1["diviner/ice_score.py<br/>8-band weighted fusion"]
+
+    F1(["Ice Confidence Map<br/>230M px, full south pole"])
+    F2(["Ice-candidate pixel set<br/>e.g. Faustini: 15,153 px"])
+
+    G1["Landing Site Selection"]
+    G2["A-star Rover Path Planning"]
+    G3["Ice Volume Estimate<br/>top 5 m"]
+
+    A1 --> B1 --> B2
+    A2 --> B1
+    A3 --> C1
+    A3 --> C2
+    C1 --> C3
+    C2 --> C3
+    A3 --> D1
+    A5 --> D1
+    D1 --> D2
+    A4 --> E1
+    B2 --> E1
+    C3 --> E1
+    D2 -.-> E1
+    E1 --> F1
+    C3 --> F2
+    F1 --> G1 --> G2
+    F1 --> G3
+
+    classDef done fill:#1b5e20,stroke:#1b5e20,color:#fff,stroke-width:1px;
+    classDef radar fill:#0d47a1,stroke:#0d47a1,color:#fff,stroke-width:1px;
+    classDef fusion fill:#4a148c,stroke:#4a148c,color:#fff,stroke-width:1px;
+    classDef planned fill:#ffffff,stroke:#e65100,color:#e65100,stroke-width:2px,stroke-dasharray: 5 3;
+    classDef data fill:#37474f,stroke:#37474f,color:#fff,stroke-width:1px;
+
+    class A1,A2,A3,A4,A5 data;
+    class B1,B2 done;
+    class C1,C2,C3 radar;
+    class D1,D2 radar;
+    class E1,F1,F2 fusion;
+    class G1,G2,G3 planned;

@@ -1,0 +1,28 @@
+flowchart LR
+    A1b["...from ALIGNMENT"]:::align
+
+    subgraph L4["FUSION"]
+        F1["diviner/ice_score.py<br/>8-band weighted<br/>physics fusion"]
+    end
+
+    subgraph L5["OUTPUT LAYER"]
+        O1[("Feature_Stack.tif<br/>5.2 GB, 9 bands")]
+        O2[("Ice_Confidence_Map.tif<br/>992 MB")]
+    end
+
+    subgraph L6["DECISION-SUPPORT — planned"]
+        S1["Landing Site<br/>Selection"]
+        S2["A-star Rover<br/>Path Planning"]
+        S3["Ice Volume<br/>Estimation"]
+    end
+
+    A1b --> L4 --> L5 --> L6
+
+    classDef align fill:#00695c,stroke:#00695c,color:#fff;
+    classDef fuse fill:#4a148c,stroke:#4a148c,color:#fff;
+    classDef out fill:#1b5e20,stroke:#1b5e20,color:#fff;
+    classDef planned fill:#ffffff,stroke:#e65100,color:#e65100,stroke-width:2px,stroke-dasharray: 5 3;
+
+    class F1 fuse;
+    class O1,O2 out;
+    class S1,S2,S3 planned;

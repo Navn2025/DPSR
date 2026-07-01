@@ -1,0 +1,169 @@
+2026-07-01 17:49:05 | INFO     | diviner_pipeline               | Log file: C:\Users\navne\Desktop\ISRO_Hackathon\outputs\diviner\logs\diviner_pipeline.log
+2026-07-01 17:49:05 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:05 | INFO     | diviner_pipeline               |   STEP 1  |  Load Input Datasets & Print Metadata
+2026-07-01 17:49:05 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:05 | INFO     | diviner_pipeline               |   ── Diviner Thermal Datasets ──────────────────────────────────
+2026-07-01 17:49:07 | WARNING  | diviner_pipeline.loader        |   polar_south_80_Tmean.grd: CRS is None — assigning Moon geographic placeholder (+proj=longlat +R=1737400 +no_defs +type=crs).  Verify before publishing results.
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |   ── Tmean (GRD) ──────────────────────────────────
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     File    : polar_south_80_Tmean.grd
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     CRS     : None
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Res     : 1 x 1  (x, y  CRS units)
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=0.0, bottom=2533.0, right=2533.0, top=0.0)
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Width   : 2533
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Height  : 2533
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     NoData  : 9.969209968386869e+36
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Stats   : Min=2.9113e+01  Max=1.9012e+02  Mean=1.1275e+02  Std=2.9935e+01
+2026-07-01 17:49:07 | INFO     | diviner_pipeline               |     Valid   : 5,038,193 / 6,416,089  (78.52 %)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |   ── ZIT   (TIF) ──────────────────────────────────
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     File    : polar_south_80_zit_float32.tif
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     CRS     : PROJCS["unknown",GEOGCS["unknown",DATUM["unknown",SPHEROID["unknown",1737400,0]],PRIMEM["Reference meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Res     : 240.03596 x 240.03596  (x, y  CRS units)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=-304005.54, bottom=-304005.54, right=304005.54, top=304005.54)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Width   : 2533
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Height  : 2533
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     NoData  : nan
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Stats   : Min=0.0000e+00  Max=7.1427e-01  Mean=8.0476e-02  Std=7.3262e-02
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Valid   : 3,108,489 / 6,416,089  (48.45 %)
+2026-07-01 17:49:08 | WARNING  | diviner_pipeline.loader        |   polar_south_80_pump.grd: CRS is None — assigning Moon geographic placeholder (+proj=longlat +R=1737400 +no_defs +type=crs).  Verify before publishing results.
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |   ── Pump  (GRD) ──────────────────────────────────
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     File    : polar_south_80_pump.grd
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     CRS     : None
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Res     : 1 x 1  (x, y  CRS units)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=0.0, bottom=2533.0, right=2533.0, top=0.0)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Width   : 2533
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Height  : 2533
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     NoData  : 9.969209968386869e+36
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Stats   : Min=8.8411e-39  Max=1.0017e+00  Mean=6.9271e-01  Std=3.3060e-01
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |     Valid   : 2,110,185 / 6,416,089  (32.89 %)
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               | 
+2026-07-01 17:49:08 | INFO     | diviner_pipeline               |   ── Existing Pipeline Products (read-only) ────────────────────
+2026-07-01 17:49:15 | INFO     | diviner_pipeline               |   ── DEM  (LOLA) ──────────────────────────────────
+2026-07-01 17:49:15 | INFO     | diviner_pipeline               |     File    : ldem_85s_20m_float.lbl
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     CRS     : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["unknown",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Res     : 20 x 20  (x, y  CRS units)
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=-151680.0, bottom=-151680.0, right=151680.0, top=151680.0)
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Width   : 15168
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Height  : 15168
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     NoData  : -3.4028226550889045e+38
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Stats   : Min=-5.5000e+00  Max=7.0269e+00  Mean=-1.0671e+00  Std=1.9726e+00
+2026-07-01 17:49:16 | INFO     | diviner_pipeline               |     Valid   : 230,068,224 / 230,068,224  (100.00 %)
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |   ── PSR  (mask) ──────────────────────────────────
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     File    : PSR_mask.tif
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     CRS     : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Res     : 20 x 20  (x, y  CRS units)
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=-151680.0, bottom=-151680.0, right=151680.0, top=151680.0)
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Width   : 15168
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Height  : 15168
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Dtype   : uint8
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     NoData  : -9999.0
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Stats   : Min=0.0000e+00  Max=1.0000e+00  Mean=1.0789e-01  Std=3.1025e-01
+2026-07-01 17:49:22 | INFO     | diviner_pipeline               |     Valid   : 230,068,224 / 230,068,224  (100.00 %)
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |   ── DPSR (mask) ──────────────────────────────────
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     File    : DPSR.tif
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     CRS     : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Res     : 20 x 20  (x, y  CRS units)
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=-151680.0, bottom=-151680.0, right=151680.0, top=151680.0)
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Width   : 15168
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Height  : 15168
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Dtype   : uint8
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     NoData  : -9999.0
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Stats   : Min=0.0000e+00  Max=1.0000e+00  Mean=7.9000e-05  Std=8.8878e-03
+2026-07-01 17:49:28 | INFO     | diviner_pipeline               |     Valid   : 230,068,224 / 230,068,224  (100.00 %)
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |   ── CPR  (DFSAR) ──────────────────────────────────
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     File    : CPR.tif
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     CRS     : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Res     : 20 x 20  (x, y  CRS units)
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=-151680.0, bottom=-151680.0, right=151680.0, top=151680.0)
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Width   : 15168
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Height  : 15168
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     NoData  : nan
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Stats   : Min=2.5521e-03  Max=3.9244e+00  Mean=2.6628e-01  Std=1.5998e-01
+2026-07-01 17:49:38 | INFO     | diviner_pipeline               |     Valid   : 166,862,341 / 230,068,224  (72.53 %)
+2026-07-01 17:49:42 | WARNING  | diviner_pipeline.loader        |   Calculated_DOP.tif: CRS is None — assigning Moon geographic placeholder (+proj=longlat +R=1737400 +no_defs +type=crs).  Verify before publishing results.
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   ── DOP  (DFSAR) ──────────────────────────────────
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     File    : Calculated_DOP.tif
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     CRS     : None
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Res     : 1 x 1  (x, y  CRS units)
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Bounds  : BoundingBox(left=0.0, bottom=252825.0, right=244.0, top=0.0)
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Width   : 244
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Height  : 252825
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Dtype   : float32
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     NoData  : -9999.0
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Bands   : 1
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Stats   : Min=1.1829e-02  Max=9.9963e-01  Mean=7.5912e-01  Std=1.3059e-01
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |     Valid   : 61,689,300 / 61,689,300  (100.00 %)
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               | 
+  STEP 1 complete in 37.95 s
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   STEP 2  |  Convert GRD → GeoTIFF
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   ZIT is already a GeoTIFF — no conversion needed.
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   Tmean .grd → GeoTIFF  (assigning spatial reference from ZIT) ...
+2026-07-01 17:49:42 | INFO     | diviner_pipeline.loader        |   [skip] Tmean_converted.tif already exists — conversion skipped.
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   Pump .grd → GeoTIFF  (assigning spatial reference from ZIT) ...
+2026-07-01 17:49:42 | INFO     | diviner_pipeline.loader        |   [skip] Pump_converted.tif already exists — conversion skipped.
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   STEP 2 complete in 0.00 s
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   STEP 3+4  |  Reproject & Resample to Reference Grid
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:42 | INFO     | diviner_pipeline               |   Reference grid: DPSR.tif
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |     CRS      : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |     Size     : 15168 x 15168
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |     Transform: | 20.00, 0.00,-151680.00|
+| 0.00,-20.00, 151680.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               | 
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Aligning Diviner layers  (bilinear resampling) ...
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] Tmean_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] ZIT_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] Pump_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Aligning DEM  (bilinear resampling, km → m ×1000) ...
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] DEM_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Aligning PSR and DPSR masks  (nearest-neighbour resampling) ...
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] PSR_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] DPSR_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Aligning CPR  (bilinear resampling) ...
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] CPR_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Aligning DOP  (bilinear resampling) ...
+2026-07-01 17:49:43 | INFO     | diviner_pipeline.aligner       |   [skip] DOP_aligned.tif already aligned — skipping.
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   STEP 3+4 complete in 0.26 s
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               |   Loading aligned arrays into memory
+2026-07-01 17:49:43 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded Tmean   (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded ZIT     (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded Pump    (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded DEM     (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded PSR     (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded DPSR    (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded CPR     (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Loaded DOP     (15168, 15168)  877.6 MB
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   All arrays loaded in 44.88 s  (tracked: 7021 MB)
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               |   Deriving Slope from aligned DEM
+2026-07-01 17:50:28 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               |   Slope computed in 1.3 min  (877.6 MB)
+2026-07-01 17:51:45 | INFO     | diviner_pipeline.aligner       |   [skip] Slope_aligned.tif already exists — slope save skipped.
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               |   Slope saved: Slope_aligned.tif
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               |   STEP 5  |  Quick-Look Previews (Tmean, ZIT, Pump)
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:51:45 | INFO     | diviner_pipeline.visualizer    |   [skip] Tmean_preview.png already exists.
+2026-07-01 17:51:45 | INFO     | diviner_pipeline.visualizer    |   [skip] ZIT_preview.png already exists.
+2026-07-01 17:51:45 | INFO     | diviner_pipeline.visualizer    |   [skip] Pump_preview.png already exists.
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               |   STEP 5 complete in 0.07 s  — saved to C:\Users\navne\Desktop\ISRO_Hackathon\outputs\previews
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               | ==============================================================
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               |   STEP 6  |  Descriptive Statistics
+2026-07-01 17:51:45 | INFO     | diviner_pipeline               | ==============================================================

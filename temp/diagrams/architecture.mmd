@@ -1,0 +1,62 @@
+flowchart TB
+    subgraph ROW1[" "]
+        direction LR
+        subgraph L1["DATA LAYER"]
+            D1[("LOLA DEM")]
+            D2[("PSR Shapefile")]
+            D3[("CH2 DFSAR<br/>SLI/GRI/SRI")]
+            D4[("LRO Diviner<br/>Tmean/ZIT/Pump")]
+            D5[("Official CPR Mosaic<br/>Putrevu 2023")]
+        end
+
+        subgraph L2["PROCESSING LAYER"]
+            P1["dpsr/<br/>DPSR ray-tracing"]
+            P2["cpr/, cpr_gri/<br/>CPR computation"]
+            P3["dop/<br/>DOP / Stokes"]
+            P4["validation/<br/>GCP + metrics"]
+        end
+
+        subgraph L3["ALIGNMENT"]
+            A1["diviner/aligner.py<br/>reproject to common<br/>20 m LOLA grid"]
+        end
+
+        L1 --> L2 --> L3
+    end
+
+    subgraph ROW2[" "]
+        direction LR
+        subgraph L4["FUSION"]
+            F1["diviner/ice_score.py<br/>8-band weighted<br/>physics fusion"]
+        end
+
+        subgraph L5["OUTPUT LAYER"]
+            O1[("Feature_Stack.tif<br/>5.2 GB, 9 bands")]
+            O2[("Ice_Confidence_Map.tif<br/>992 MB")]
+        end
+
+        subgraph L6["DECISION-SUPPORT — planned"]
+            S1["Landing Site<br/>Selection"]
+            S2["A-star Rover<br/>Path Planning"]
+            S3["Ice Volume<br/>Estimation"]
+        end
+
+        L4 --> L5 --> L6
+    end
+
+    L3 ==> L4
+
+    classDef data fill:#37474f,stroke:#37474f,color:#fff;
+    classDef proc fill:#0d47a1,stroke:#0d47a1,color:#fff;
+    classDef align fill:#00695c,stroke:#00695c,color:#fff;
+    classDef fuse fill:#4a148c,stroke:#4a148c,color:#fff;
+    classDef out fill:#1b5e20,stroke:#1b5e20,color:#fff;
+    classDef planned fill:#ffffff,stroke:#e65100,color:#e65100,stroke-width:2px,stroke-dasharray: 5 3;
+    style ROW1 fill:none,stroke:none;
+    style ROW2 fill:none,stroke:none;
+
+    class D1,D2,D3,D4,D5 data;
+    class P1,P2,P3,P4 proc;
+    class A1 align;
+    class F1 fuse;
+    class O1,O2 out;
+    class S1,S2,S3 planned;
