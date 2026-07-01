@@ -1,6 +1,16 @@
-> ### 🔗 **[▶ VIEW PROJECT DRIVE — Full Materials / Demo](https://drive.google.com/file/d/1ArJ46b1K0kKLbFitsdQhV43AZ7-KI_E3/view?usp=drive_link)**
+> ### 🔗 **[▶ VIEW PRESENTATION & FULL EXPLANATION (Drive)](https://drive.google.com/file/d/1GdfXjIone_D90hqFLwcaTXP8JMVdYooY/view?usp=drive_link)**
 >
-> **https://drive.google.com/file/d/1ArJ46b1K0kKLbFitsdQhV43AZ7-KI_E3/view?usp=drive_link**
+> **https://drive.google.com/file/d/1GdfXjIone_D90hqFLwcaTXP8JMVdYooY/view?usp=drive_link**
+
+---
+
+> ⚠️ **Work in progress.** This is a *proposed* solution built under a limited
+> time window. What is presented here is a functional first version that
+> already runs end-to-end and produces real outputs — but it is **not final**.
+> We are actively optimising the pipeline to reach more accurate and reliable
+> results, and there are a few known problems (see §7) that we are currently
+> working to fix. Further improvements, additional features, and a fuller
+> explanation are covered in the presentation linked above.
 
 ---
 
