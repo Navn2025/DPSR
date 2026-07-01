@@ -1,5 +1,5 @@
 flowchart LR
-    subgraph SRC["🛰️ SOURCE DATASETS (ISRO / NASA)"]
+    subgraph SRC["SOURCE DATASETS (ISRO / NASA)"]
         direction TB
         D1["LOLA DEM<br/>PDS Geosciences<br/>15168×15168 @ 20 m/px"]
         D2["LOLA PSR Shapefile<br/>80°S – 90°S"]
@@ -8,7 +8,7 @@ flowchart LR
         D5["LRO Diviner<br/>Tmean · ZIT · Pump"]
     end
 
-    subgraph IND["🔬 DERIVED INDICATOR"]
+    subgraph IND["DERIVED INDICATOR"]
         direction TB
         I1["Elevation / Slope"]
         I2["PSR + DPSR mask<br/>double shadow"]
@@ -18,7 +18,7 @@ flowchart LR
         I5["Validation reference"]
     end
 
-    subgraph FUS["🧮 FUSION OUTPUT"]
+    subgraph FUS["FUSION OUTPUT"]
         Z["Ice Confidence Map<br/>+ Ranked Sites"]
     end
 

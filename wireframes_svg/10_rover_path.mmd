@@ -1,0 +1,31 @@
+flowchart TB
+    L["Landing Site"]
+    G["Target Ice Site"]
+    S["Slope / DEM"]
+    H["Hazards:<br/>craters · boulders"]
+    I["Illumination map<br/>(solar power)"]
+    P["Shadow / PSR<br/>dwell zones"]
+
+    C["Build Traversability Cost Map<br/>slope + roughness + shadow dwell"]
+    A["Path Planning<br/>A* / Dijkstra over cost map"]
+    W["Optimal Traverse + Waypoints"]
+    O["Rover Path<br/>safe · sunlit · reaches ice"]
+
+    S --> C
+    H --> C
+    I --> C
+    P --> C
+    L --> A
+    G --> A
+    C --> A
+    A --> W
+    W --> O
+
+    classDef inp fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
+    classDef proc fill:#fff3e0,stroke:#e65100,color:#bf360c;
+    classDef plan fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c,font-weight:bold;
+    classDef out fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20,font-weight:bold;
+    class L,G,S,H,I,P inp;
+    class C proc;
+    class A,W plan;
+    class O out;

@@ -1,0 +1,30 @@
+flowchart LR
+    subgraph SCI["SCIENCE VALUE"]
+        direction TB
+        A["High Ice Confidence<br/>(fused score)"]
+        C["DPSR / cold-trap<br/>proximity"]
+    end
+
+    subgraph ENG["ENGINEERING SAFETY"]
+        direction TB
+        B["Slope &lt; 10°"]
+        E["Low roughness<br/>few boulders / craters"]
+        D["Illumination:<br/>solar power + Earth comms"]
+    end
+
+    A --> M
+    C --> M
+    B --> M
+    E --> M
+    D --> M
+
+    M["Multi-Criteria Scoring<br/>weighted safety × science"] --> R["Ranked Landing Sites"] --> T["Selected Landing Zone"]
+
+    classDef sci fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+    classDef eng fill:#fff3e0,stroke:#e65100,color:#bf360c;
+    classDef calc fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c,font-weight:bold;
+    classDef out fill:#e1f5fe,stroke:#0277bd,color:#01579b,font-weight:bold;
+    class A,C sci;
+    class B,E,D eng;
+    class M,R calc;
+    class T out;

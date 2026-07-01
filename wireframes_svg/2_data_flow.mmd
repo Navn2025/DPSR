@@ -29,10 +29,26 @@ flowchart LR
         F3 --> F4[("Ice Confidence Map")]
     end
 
+    subgraph S5["5 · DECISION SUPPORT"]
+        direction TB
+        A1["Rock vs Ice<br/>Classification"]
+        A2["Landing-Site<br/>Selection"]
+        A3["Rover Path<br/>Planning"]
+        A9[("Ranked Sites +<br/>Rover Traverse + Report")]
+        A1 --> A2
+        A2 --> A3
+        A2 --> A9
+        A3 --> A9
+    end
+
     T6 --> F1
     R5 --> F1
     R6 --> F1
     H2 --> F1
+    F4 --> A1
+    F4 --> A2
 
     classDef db fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20,font-weight:bold;
-    class T6,R5,R6,H2,F4 db;
+    classDef app fill:#e0f7fa,stroke:#00838f,color:#006064;
+    class T6,R5,R6,H2,F4,A9 db;
+    class A1,A2,A3 app;

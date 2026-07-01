@@ -1,0 +1,17 @@
+flowchart TB
+    START["DFSAR pixel<br/>(full-pol L-band)"] --> Q1{"CPR &gt; 1 ?"}
+    Q1 -->|No| ROCK1["Bare regolith<br/>surface / Bragg scattering"]
+    Q1 -->|Yes| Q2{"DOP &lt; 0.13 ?"}
+    Q2 -->|No| ROCK2["Rough rock / ejecta<br/>high CPR + high DOP"]
+    Q2 -->|Yes| Q3{"Cold trap ?<br/>PSR / DPSR + low Tmean"}
+    Q3 -->|No| ROCK3["Rough terrain<br/>not thermally stable"]
+    Q3 -->|Yes| ICE["ICE CANDIDATE<br/>volume scattering + cold + shadow"]
+
+    classDef start fill:#eceff1,stroke:#455a64,color:#263238;
+    classDef q fill:#fff3e0,stroke:#e65100,color:#bf360c,font-weight:bold;
+    classDef rock fill:#efebe9,stroke:#5d4037,color:#3e2723;
+    classDef ice fill:#e1f5fe,stroke:#0277bd,color:#01579b,font-weight:bold;
+    class START start;
+    class Q1,Q2,Q3 q;
+    class ROCK1,ROCK2,ROCK3 rock;
+    class ICE ice;

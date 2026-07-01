@@ -1,12 +1,12 @@
 %%{init: {'flowchart': {'wrappingWidth': 640}}}%%
 flowchart TB
-    FE["<b>🖥️  FRONTEND / UI LAYER</b><br/><br/>React &nbsp;·&nbsp; Leaflet (interactive lunar map) &nbsp;·&nbsp; HTML / CSS / JS"]
-    API["<b>🔌  BACKEND / API LAYER</b><br/><br/>FastAPI &nbsp;·&nbsp; Flask"]
-    PROC["<b>⚙️  GEOSPATIAL & SAR PROCESSING</b><br/><br/>Python &nbsp;·&nbsp; Rasterio &nbsp;·&nbsp; GDAL &nbsp;·&nbsp; GeoPandas &nbsp;·&nbsp; NumPy / SciPy &nbsp;·&nbsp; Numba / CUDA (GPU ray-casting)"]
-    MLV["<b>🤖  ML / COMPUTER VISION</b><br/><br/>OpenCV &nbsp;·&nbsp; Scikit-learn &nbsp;·&nbsp; TensorFlow &nbsp;·&nbsp; PyTorch"]
-    VIZ["<b>📊  VISUALIZATION</b><br/><br/>Matplotlib &nbsp;·&nbsp; Plotly"]
-    DATA["<b>🗄️  DATA / STORAGE</b><br/><br/>GeoTIFF rasters &nbsp;·&nbsp; PostgreSQL / PostGIS"]
-    DEP["<b>🚀  DEPLOYMENT & DEVOPS</b><br/><br/>Docker &nbsp;·&nbsp; GitHub &nbsp;·&nbsp; AWS / Azure"]
+    FE["<b>FRONTEND / UI LAYER</b><br/><br/>React &nbsp;·&nbsp; Leaflet (interactive lunar map) &nbsp;·&nbsp; HTML / CSS / JS"]
+    API["<b>BACKEND / API LAYER</b><br/><br/>FastAPI &nbsp;·&nbsp; Flask"]
+    PROC["<b>GEOSPATIAL & SAR PROCESSING</b><br/><br/>Python &nbsp;·&nbsp; Rasterio &nbsp;·&nbsp; GDAL &nbsp;·&nbsp; GeoPandas &nbsp;·&nbsp; NumPy / SciPy &nbsp;·&nbsp; Numba / CUDA (GPU ray-casting)"]
+    MLV["<b>ML / COMPUTER VISION</b><br/><br/>OpenCV &nbsp;·&nbsp; Scikit-learn &nbsp;·&nbsp; TensorFlow &nbsp;·&nbsp; PyTorch"]
+    VIZ["<b>VISUALIZATION</b><br/><br/>Matplotlib &nbsp;·&nbsp; Plotly"]
+    DATA["<b>DATA / STORAGE</b><br/><br/>GeoTIFF rasters &nbsp;·&nbsp; PostgreSQL / PostGIS"]
+    DEP["<b>DEPLOYMENT & DEVOPS</b><br/><br/>Docker &nbsp;·&nbsp; GitHub &nbsp;·&nbsp; AWS / Azure"]
 
     FE --> API --> PROC --> MLV --> VIZ --> DATA --> DEP
 

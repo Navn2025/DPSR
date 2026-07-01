@@ -1,5 +1,5 @@
 flowchart TB
-    subgraph INPUTS["📥 DATA INPUTS (NASA / ISRO)"]
+    subgraph INPUTS["DATA INPUTS (NASA / ISRO)"]
         direction LR
         A1["LOLA DEM<br/>15168×15168 @ 20 m/px"]
         A2["LOLA PSR Shapefile<br/>80°S–90°S"]
@@ -8,7 +8,7 @@ flowchart TB
         A5["LRO Diviner<br/>Tmean · ZIT · Pump"]
     end
 
-    subgraph PROC["⚙️ PHYSICS-BASED PROCESSING MODULES"]
+    subgraph PROC["PHYSICS-BASED PROCESSING MODULES"]
         direction LR
         B1["DPSR Engine<br/>Solar Ray-Casting<br/>(Numba / CUDA)"]
         B2["CPR Engine<br/>SC/OC Polarimetry"]
@@ -16,13 +16,20 @@ flowchart TB
         B4["Validation<br/>Computed vs Official"]
     end
 
-    subgraph FUSION["🧮 FUSION ENGINE (diviner/)"]
-        C1["Grid Alignment<br/>reproject → LOLA grid"]
+    subgraph FUSION["FUSION ENGINE (diviner/)"]
+        C1["Grid Alignment<br/>reproject to LOLA grid"]
         C2["Weighted Physics Score<br/>(no ML — explainable)"]
     end
 
-    subgraph OUT["🗺️ OUTPUT"]
+    subgraph OUT["CORE OUTPUT"]
         D1["Ice Confidence Map<br/>+ Ranked Candidate Sites"]
+    end
+
+    subgraph APP["DECISION-SUPPORT APPLICATIONS"]
+        direction LR
+        E1["Landing-Site<br/>Selection"]
+        E2["Rock vs Ice<br/>Classification"]
+        E3["Rover Path<br/>Planning"]
     end
 
     A1 --> B1
@@ -38,11 +45,17 @@ flowchart TB
     A5 --> C1
     C1 --> C2 --> D1
 
+    D1 --> E1
+    D1 --> E2
+    D1 --> E3
+
     classDef inp fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
     classDef proc fill:#fff3e0,stroke:#e65100,color:#bf360c;
     classDef fus fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c;
     classDef out fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+    classDef app fill:#e0f7fa,stroke:#00838f,color:#006064,font-weight:bold;
     class A1,A2,A3,A4,A5 inp;
     class B1,B2,B3,B4 proc;
     class C1,C2 fus;
     class D1 out;
+    class E1,E2,E3 app;
