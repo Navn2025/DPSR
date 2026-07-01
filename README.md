@@ -27,7 +27,7 @@ ISRO_Hackathon/
 ├── data/                   Input data (do not modify)
 │   ├── ldem_85s_20m_float.lbl       LOLA DEM — PDS3 label
 │   ├── ldem_85s_20m_float.img       LOLA DEM — binary data
-│   └── LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp  PSR shapefile
+│   └── LPSR_80S_20MPP_ADJ.shp  PSR shapefile (80°S–90°S, 20 m/px)
 ├── pipeline/               Modular pipeline steps
 │   ├── utils.py                Shared constants & paths
 │   ├── step01_load.py          DEM + PSR loading
@@ -147,7 +147,7 @@ with rasterio.open('results/DPSR.tif') as ds:
 ## Data Sources
 
 - **DEM**: LOLA 20 m/pixel polar DEM — `ldem_85s_20m_float` (PDS3 format)
-- **PSR shapefile**: `LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp` — permanently shadowed regions poleward of 75°S, ≥5 km²
+- **PSR shapefile**: `LPSR_80S_20MPP_ADJ.shp` — permanently shadowed regions from 80°S to 90°S, 20 m/px resolution
 
 ---
 

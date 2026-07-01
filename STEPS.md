@@ -14,9 +14,10 @@ Make sure these files exist in the `data/` folder:
 data/
   ldem_85s_20m_float.lbl     ← PDS3 label file
   ldem_85s_20m_float.img     ← actual DEM data (opened via .lbl)
-  LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp
-  LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.dbf
-  LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shx
+  LPSR_80S_20MPP_ADJ.shp
+  LPSR_80S_20MPP_ADJ.dbf
+  LPSR_80S_20MPP_ADJ.prj
+  LPSR_80S_20MPP_ADJ.shx
 ```
 
 If any shapefile is missing, re-download it from the PDS Geosciences Node.

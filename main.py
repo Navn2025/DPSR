@@ -43,7 +43,7 @@ OUT_DIR.mkdir(exist_ok=True)
 (ROOT / "images").mkdir(exist_ok=True)
 
 DEM_PATH          = DATA_DIR / "ldem_85s_20m_float.lbl"
-PSR_SHP_PATH      = DATA_DIR / "LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp"
+PSR_SHP_PATH      = DATA_DIR / "LPSR_80S_20MPP_ADJ.shp"
 
 PSR_MASK_PATH     = OUT_DIR / "PSR_mask.tif"
 SLOPE_PATH        = OUT_DIR / "slope.tif"
@@ -77,6 +77,38 @@ def skip(path: Path) -> bool:
 def done(path: Path, t0: float) -> None:
     mb = path.stat().st_size / 1e6
     print(f"  [DONE] {path.name}  ({mb:.1f} MB)  {time.perf_counter()-t0:.1f} s")
+
+
+def save_preview(tif_path: Path, cmap: str = "gray", label: str = None,
+                 vmin=None, vmax=None, pct_clip: float = 2.0) -> None:
+    """Downsample TIF to ≤1024px and save PNG to images/."""
+    if not tif_path.exists():
+        return
+    from rasterio.enums import Resampling
+    png_path = ROOT / "images" / (tif_path.stem + ".png")
+    with rasterio.open(tif_path) as ds:
+        scale  = min(1.0, 1024 / max(ds.width, ds.height))
+        out_h  = max(1, int(ds.height * scale))
+        out_w  = max(1, int(ds.width  * scale))
+        arr    = ds.read(1, out_shape=(out_h, out_w),
+                         resampling=Resampling.average).astype(np.float32)
+    if vmin is None:
+        vmin = float(np.nanpercentile(arr, pct_clip))
+    if vmax is None:
+        vmax = float(np.nanpercentile(arr, 100 - pct_clip))
+    if vmin == vmax:
+        vmin, vmax = float(arr.min()), float(arr.max())
+
+    fig, ax = plt.subplots(figsize=(8, 8), dpi=100)
+    im = ax.imshow(arr, cmap=cmap, vmin=vmin, vmax=vmax, interpolation="nearest")
+    ax.axis("off")
+    if label:
+        ax.set_title(label, fontsize=13, pad=6)
+    plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    plt.tight_layout()
+    plt.savefig(png_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  Preview  -> images/{png_path.name}")
 
 
 # ── Step 1: Load DEM ───────────────────────────────────────────────────────────
@@ -252,10 +284,17 @@ def make_illumination(elevation: np.ndarray, meta: dict,
 
 def validate_spot_checks(elevation, illumination, dpsr_raster, psr_mask):
     print("\n  Spot-check validation:")
-    # These are placeholder coordinates — update after inspecting the DEM
+    # Coordinates verified by debug_validation.py:
+    #   Shackleton PSR centroid (233.7 km2 polygon nearest south pole):
+    #     projected (8449, -6649) m  →  row=7916, col=8006
+    #     psr=1, illum=0 confirmed by polygon intersection test
+    #   Rim point: 10 km north of centroid along col=8006, outside PSR polygon
+    # Per O'Brien & Byrne (2022) Table 1, DPSRs within Shackleton are
+    # small sub-craters on the open floor, not the floor itself.
+    # Open PSR floor is PSR but NOT necessarily DPSR.
     checks = [
-        ("Shackleton rim (should see sunlight)",  7580, 7580, False),
-        ("Shackleton interior (should be DPSR)",  7584, 7584, True),
+        ("Shackleton rim (should see sunlight)",        7416, 8006, False),
+        ("Shackleton PSR floor (PSR, not DPSR floor)",  7916, 8006, False),
     ]
     for label, row, col, expect_dpsr in checks:
         h = elevation[row, col]
@@ -269,114 +308,60 @@ def validate_spot_checks(elevation, illumination, dpsr_raster, psr_mask):
               f"  (expected dpsr={int(expect_dpsr)})")
 
 
-# ── Step 6: DPSR ray-casting ──────────────────────────────────────────────────
+# ── Step 6: DPSR  (O'Brien & Byrne 2022) ─────────────────────────────────────
+#
+# Implements "Double Shadows at the Lunar Poles", PSJ 3:258.
+#
+# A pixel is DPSR iff:
+#   1. It is permanently shadowed  (psr_mask == 1)
+#   2. It has NO line of sight to ANY non-PSR surface  (psr_mask == 0)
+#      along any of 360 azimuth directions (paper: 720).
+#
+# Key differences from naive approach:
+#   - Visibility target = psr_mask == 0   (NOT illumination raster)
+#   - Curvature-corrected elevation angle (Eq. A4 from paper Appendix)
+#   - Post-processing: remove components < 5 pixels (8-connected)
 
-def make_dpsr(elevation: np.ndarray, illumination: np.ndarray,
-              psr_mask: np.ndarray, meta: dict,
-              force_cpu: bool, force_gpu: bool) -> np.ndarray:
+def make_dpsr(elevation: np.ndarray, psr_mask: np.ndarray, meta: dict,
+              force_cpu: bool = False, force_gpu: bool = False,
+              n_angles: int = 360, max_dist: int = 2500) -> np.ndarray:
+    """
+    Compute DPSR map using O'Brien & Byrne (2022) method.
 
-    from pipeline.step01_load        import extract_psr_indices
-    from pipeline.step02_precompute_rays import precompute_rays
+    Parameters
+    ----------
+    n_angles  : azimuth directions  (paper: 720; default: 360 at 1 deg)
+    max_dist  : max ray pixels      (paper: 7500=150km; default: 2500=50km)
+    """
+    if skip(DPSR_PATH):
+        with rasterio.open(DPSR_PATH) as ds:
+            return ds.read(1)
 
-    psr_rows, psr_cols = extract_psr_indices(psr_mask)
-    ray_dr, ray_dc, ray_dist, ray_len = precompute_rays()
+    from pipeline.step_dpsr_obrien import compute_dpsr, _CUDA_AVAILABLE
 
-    # ── Decide CPU vs GPU ──────────────────────────────────────────────────────
-    use_gpu = False
-    if not force_cpu:
-        try:
-            from numba import cuda
-            use_gpu = cuda.is_available()
-        except Exception:
-            pass
-    if force_gpu and not use_gpu:
-        raise RuntimeError("--gpu requested but no CUDA GPU found.")
+    if force_gpu and not _CUDA_AVAILABLE:
+        raise RuntimeError("--gpu requested but CUDA is not available.")
+    use_gpu = True  if force_gpu else \
+              False if force_cpu  else \
+              _CUDA_AVAILABLE
 
-    if use_gpu:
-        print("  Backend : GPU (Numba CUDA)")
-        dpsr_flags = _run_gpu(elevation, illumination, psr_rows, psr_cols,
-                               ray_dr, ray_dc, ray_dist, ray_len)
-    else:
-        print("  Backend : CPU (Numba parallel, 12 cores)")
-        dpsr_flags = _run_cpu(elevation, illumination, psr_rows, psr_cols,
-                               ray_dr, ray_dc, ray_dist, ray_len)
+    t0 = time.perf_counter()
+    dpsr_raster = compute_dpsr(
+        elevation, psr_mask,
+        n_angles=n_angles,
+        max_dist=max_dist,
+        cellsize=CELLSIZE,
+        use_gpu=use_gpu,
+        min_component=5,
+    )
 
-    # Scatter flags back to raster
-    dpsr_raster = np.zeros(elevation.shape, dtype=np.uint8)
-    mask_idx    = dpsr_flags == 1
-    dpsr_raster[psr_rows[mask_idx], psr_cols[mask_idx]] = 1
-
-    # Save
     out_meta = meta.copy()
     out_meta.update(dtype="uint8", count=1, compress="lzw", nodata=None)
     with rasterio.open(DPSR_PATH, "w", **out_meta) as dst:
         dst.write(dpsr_raster, 1)
 
-    print(f"  DPSR pixels : {dpsr_raster.sum():,}")
+    done(DPSR_PATH, t0)
     return dpsr_raster
-
-
-def _run_cpu(elevation, illumination, psr_rows, psr_cols,
-             ray_dr, ray_dc, ray_dist, ray_len):
-    from pipeline.step03_numba_raytrace import classify_psr_pixels, warmup
-    print("  Compiling Numba kernel …")
-    warmup(ray_dr, ray_dc, ray_dist, ray_len)
-    print(f"  Processing {len(psr_rows):,} pixels …")
-    t0 = time.perf_counter()
-    flags = classify_psr_pixels(
-        elevation, illumination, psr_rows, psr_cols,
-        ray_dr, ray_dc, ray_dist, ray_len,
-    )
-    elapsed = time.perf_counter() - t0
-    print(f"  CPU done : {elapsed:.1f} s ({elapsed/60:.1f} min)  "
-          f"speed={len(psr_rows)/elapsed:,.0f} px/s")
-    return flags
-
-
-def _run_gpu(elevation, illumination, psr_rows, psr_cols,
-             ray_dr, ray_dc, ray_dist, ray_len):
-    import math
-    from numba import cuda
-
-    THREADS = 256
-
-    @cuda.jit(cache=True)
-    def _kernel(elev, illum, rows, cols, dr, dc, dist, rlen, out):
-        i = cuda.grid(1)
-        if i >= rows.shape[0]:
-            return
-        n_rows = elev.shape[0]; n_cols = elev.shape[1]
-        n_ang  = dr.shape[0]
-        row = rows[i]; col = cols[i]; cur_h = elev[row, col]
-        is_dpsr = True
-        for a in range(n_ang):
-            ht = -1.0e18; ns = rlen[a]
-            for d in range(ns):
-                r = row + dr[a, d]; c = col + dc[a, d]
-                if r < 0 or r >= n_rows or c < 0 or c >= n_cols: break
-                tt = (elev[r, c] - cur_h) / dist[a, d]
-                if illum[r, c] == 1 and tt >= ht:
-                    is_dpsr = False; break
-                if tt > ht: ht = tt
-            if not is_dpsr: break
-        out[i] = 1 if is_dpsr else 0
-
-    print(f"  Transferring to GPU …")
-    d_elev = cuda.to_device(elevation);    d_ill  = cuda.to_device(illumination)
-    d_rows = cuda.to_device(psr_rows);    d_cols = cuda.to_device(psr_cols)
-    d_dr   = cuda.to_device(ray_dr);      d_dc   = cuda.to_device(ray_dc)
-    d_dist = cuda.to_device(ray_dist);    d_rlen = cuda.to_device(ray_len)
-    d_out  = cuda.device_array(len(psr_rows), dtype=np.uint8)
-
-    n_blocks = math.ceil(len(psr_rows) / THREADS)
-    print(f"  Launching kernel  blocks={n_blocks}  threads={THREADS} …")
-    t0 = time.perf_counter()
-    _kernel[n_blocks, THREADS](d_elev, d_ill, d_rows, d_cols,
-                                d_dr, d_dc, d_dist, d_rlen, d_out)
-    cuda.synchronize()
-    elapsed = time.perf_counter() - t0
-    print(f"  GPU done : {elapsed:.1f} s  speed={len(psr_rows)/elapsed:,.0f} px/s")
-    return d_out.copy_to_host()
 
 
 # ── Master pipeline ────────────────────────────────────────────────────────────
@@ -405,23 +390,31 @@ def main():
 
     banner("STEP 2 / 7  —  PSR Mask")
     psr_mask = make_psr_mask(elevation, meta)
+    save_preview(PSR_MASK_PATH, cmap="gray", label="PSR Mask", vmin=0, vmax=1)
 
     banner("STEP 3 / 7  —  Slope + Aspect")
     slope, aspect = make_slope_aspect(elevation, meta)
     del slope, aspect
+    save_preview(SLOPE_PATH,  cmap="terrain", label="Slope (°)",    pct_clip=1)
+    save_preview(ASPECT_PATH, cmap="hsv",     label="Aspect (°)",   vmin=0, vmax=360)
 
     banner("STEP 4 / 7  —  Hillshade  (visualisation only)")
     make_hillshade(elevation, meta)
+    save_preview(HILLSHADE_PATH, cmap="gray", label="Hillshade", vmin=0, vmax=1)
 
     banner("STEP 5 / 7  —  Solar Shadow Map  (physically based)")
     illumination = make_illumination(elevation, meta, annual=args.annual,
                                      force_cpu=args.cpu, force_gpu=args.gpu)
+    save_preview(ILLUMINATION_PATH, cmap="gray",
+                 label="Illumination (annual)" if args.annual else f"Illumination (az={SUN_AZIMUTH}°)",
+                 vmin=0, vmax=1)
 
-    banner("STEP 6 / 7  —  DPSR Ray-Casting")
+    banner("STEP 6 / 7  —  DPSR  (O'Brien & Byrne 2022)")
     t6 = time.perf_counter()
-    dpsr = make_dpsr(elevation, illumination, psr_mask, meta,
+    dpsr = make_dpsr(elevation, psr_mask, meta,
                      force_cpu=args.cpu, force_gpu=args.gpu)
     done(DPSR_PATH, t6)
+    save_preview(DPSR_PATH, cmap="hot", label="DPSR (O'Brien & Byrne 2022)", vmin=0, vmax=1)
 
     banner("STEP 7 / 7  —  Validation  (spot checks)")
     validate_spot_checks(elevation, illumination, dpsr, psr_mask)
@@ -437,7 +430,7 @@ def main():
     plt.tight_layout()
     fig_path = ROOT / "images" / "DPSR_summary.png"
     plt.savefig(fig_path, dpi=150, bbox_inches="tight")
-    print(f"\n  Summary plot → {fig_path}")
+    print(f"\n  Summary plot -> {fig_path}")
 
     total = time.perf_counter() - t_total
     print(f"\n{'='*60}")

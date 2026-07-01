@@ -31,7 +31,7 @@ SEP  = "=" * 65
 sep2 = "-" * 65
 
 DEM_PATH  = DATA / "ldem_85s_20m_float.lbl"
-SHP_PATH  = DATA / "LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp"
+SHP_PATH  = DATA / "LPSR_80S_20MPP_ADJ.shp"
 PSR_PATH  = RESULTS / "PSR_mask.tif"
 ILL_PATH  = RESULTS / "illumination.tif"
 DPSR_PATH = RESULTS / "DPSR.tif"

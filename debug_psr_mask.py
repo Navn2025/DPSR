@@ -38,7 +38,7 @@ RESULTS.mkdir(exist_ok=True)
 IMAGES.mkdir(exist_ok=True)
 
 DEM_PATH = DATA / "ldem_85s_20m_float.lbl"
-SHP_PATH = DATA / "LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp"
+SHP_PATH = DATA / "LPSR_80S_20MPP_ADJ.shp"
 PSR_PATH = RESULTS / "PSR_mask.tif"
 
 SEP = "-" * 60
@@ -240,6 +240,9 @@ if PSR_PATH.exists():
     print(SEP)
     print("SAVED PSR_mask.tif COMPARISON")
     print(SEP)
+    if not PSR_PATH.exists():
+        print(f"  [SKIP] {PSR_PATH.name} not found — run pipeline first")
+        return
     with rasterio.open(PSR_PATH) as ds:
         mask_saved = ds.read(1)
         saved_tf   = ds.transform

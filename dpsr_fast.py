@@ -296,6 +296,8 @@ def run_dpsr():
     psr_cols = psr_cols.astype(np.int32)
     print(f"      PSR pixels : {len(psr_rows):,}")
 
+
+
     # ── 4. Precompute ray offsets ─────────────────────────────────────────────
     print("[4/7] Precomputing ray offsets ...")
     ray_dr, ray_dc, ray_dist = precompute_ray_offsets()
