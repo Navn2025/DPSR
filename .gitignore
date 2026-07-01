@@ -3,7 +3,9 @@
 *.tiff
 *.img
 *.lbl
+*.xml
 
+*.csv
 # Python
 __pycache__/
 *.py[cod]
@@ -25,3 +27,15 @@ images/
 # OS
 .DS_Store
 Thumbs.db
+
+# Large data directories
+ch2_sar_ndxl_20250630mpcpspwest_d_fp_xxx/
+ch2_sar_ndxl_20250630my4rspwest_d_fp_xxx/
+cpr/
+cpr_dataset/
+DFSAR/
+DFSAR_Images/
+data/
+diviner/
+dop/
+images-final/

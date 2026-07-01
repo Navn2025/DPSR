@@ -1,0 +1,98 @@
+========================================================================
+  CHANDRAYAAN-2 DFSAR CPR VALIDATION REPORT
+========================================================================
+  Generated : 2026-07-01 01:15:25
+  Calculated CPR    : Calculated_CPR.tif
+  Georeferenced CPR : Calculated_CPR_Georeferenced.tif
+  Official CPR      : CPR.tif
+
+------------------------------------------------------------------------
+  1. GEOREFERENCING
+------------------------------------------------------------------------
+  Method          : GCP reprojection (rasterio.warp.reproject)
+  GCP source      : DFSAR SLI geometry CSV (8521 az x 9 rng tie pts)
+  GCP subset used : every 10th azimuth tie row x 9 range cols = 7668 GCPs
+  Src CRS         : Moon Geographic (sphere R=1737400m)
+  Dst CRS         : Moon South Pole Stereographic (lat_origin=-90)
+  Target grid     : 15168 x 15168
+  Target res      : 20 m/pixel
+  Target bounds   : ±151680 m (all four sides)
+
+------------------------------------------------------------------------
+  2. RASTER STATISTICS
+------------------------------------------------------------------------
+
+  --- Calculated CPR (georef.) ---
+    valid     : 4,205,601
+    min       : 0.007131
+    max       : 2.856917
+    mean      : 0.231168
+    median    : 0.213646
+    std       : 0.117982
+    p01       : 0.046278
+    p05       : 0.080217
+    p25       : 0.150994
+    p50       : 0.213646
+    p75       : 0.287262
+    p95       : 0.440388
+    p99       : 0.628373
+
+  --- Official CPR (Putrevu 2023) ---
+    valid     : 166,862,341
+    min       : 0.002044
+    max       : 4.183262
+    mean      : 0.266192
+    median    : 0.233867
+    std       : 0.159931
+    p01       : 0.032057
+    p05       : 0.071283
+    p25       : 0.157178
+    p50       : 0.233867
+    p75       : 0.338657
+    p95       : 0.569666
+    p99       : 0.808530
+
+------------------------------------------------------------------------
+  3. OVERLAP STATISTICS
+------------------------------------------------------------------------
+  Valid overlap pixels     : 3,270,277
+  Target grid total pixels : 230,068,224
+  Overlap fraction         : 1.421%
+
+------------------------------------------------------------------------
+  4. QUANTITATIVE METRICS
+------------------------------------------------------------------------
+  Pearson r                     : 0.0790
+  Pearson p-value               : 0.00e+00
+  Spearman r                    : 0.0684
+  Spearman p-value              : 0.00e+00
+  RMSE                          : 0.169690
+  MAE                           : 0.126969
+  Bias (calc - offic)           : +0.006945
+  R²                            : -0.5933
+  SSIM                          : 0.9440
+  Histogram intersection        : 0.8704
+  Mutual information            : 0.0026
+
+------------------------------------------------------------------------
+  5. INTERPRETATION
+------------------------------------------------------------------------
+  pearson_r                     : Poor agreement (r < 0.50)
+  ssim                          : High structural similarity (SSIM >= 0.80)
+  hist_intersection             : Very similar CPR distributions (HI >= 0.80)
+
+  Bias               : Negligible (|bias| < 0.05)
+
+  OVERALL CONCLUSION: The calculated CPR shows moderate agreement.
+  Remaining differences may be due to: (a) different SAR acquisition
+  date and orbit geometry, (b) different multilook window, (c) partial
+  georeferencing error near the scene edges.
+
+------------------------------------------------------------------------
+  6. REFERENCE
+------------------------------------------------------------------------
+  Putrevu, D. et al. (2023). Chandrayaan-2 DFSAR Full Polarimetric
+  observations of the Lunar South Pole. Journal of Geophysical Research:
+  Planets. DOI: 10.1029/2023JE007745
+
+========================================================================

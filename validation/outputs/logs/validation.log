@@ -1,0 +1,228 @@
+01:14:22  INFO     Log file: C:\Users\navne\Desktop\ISRO_Hackathon\validation\outputs\logs\validation.log
+01:14:22  INFO     ==============================================================
+01:14:22  INFO       STEP 1  |  Metadata Inspection
+01:14:22  INFO     ==============================================================
+01:14:22  INFO     Calculated CPR:
+01:14:22  DEBUG      Metadata: Calculated_CPR.tif  244W x 252825H  crs=None
+01:14:22  INFO       Path      : Calculated_CPR.tif
+01:14:22  INFO       Shape     : 252825 H x 244 W
+01:14:22  INFO       CRS       : None
+01:14:22  INFO       Transform : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+01:14:22  INFO       Nodata    : -9999.0
+01:14:22  INFO     
+Official aligned CPR:
+01:14:23  DEBUG      Metadata: CPR.tif  15168W x 15168H  crs=PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+01:14:23  INFO       Path      : CPR.tif
+01:14:23  INFO       Shape     : 15168 H x 15168 W
+01:14:24  INFO       CRS       : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOO
+01:14:24  INFO       Transform : | 20.00, 0.00,-151680.00|
+| 0.00,-20.00, 151680.00|
+| 0.00, 0.00, 1.00|
+01:14:24  INFO       Bounds    : BoundingBox(left=-151680.0, bottom=-151680.0, right=151680.0, top=151680.0)
+01:14:24  INFO       Nodata    : nan
+01:14:24  INFO     
+Geometry file discovery:
+01:14:24  INFO     Geometry files discovered in C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\geometry\calibrated\20210506:
+01:14:24  INFO       [gri_csv] ch2_sar_ncxl_20210506t022608652_g_gri_xx_fp_xx_d18.csv
+01:14:24  INFO       [oat_csv] ch2_sar_ncxl_20210506t022608652_g_oat_xx_fp_xx_d18.csv
+01:14:24  INFO       [xml_files] ch2_sar_ncxl_20210506t022608652_g_oat_xx_fp_xx_d18.xml
+01:14:24  INFO       [xml_files] ch2_sar_ncxl_20210506t022608652_g_xxx_xx_fp_xx_d18.xml
+01:14:24  INFO       [sli_csv] ch2_sar_ncxl_20210506t022608652_g_sli_xx_fp_xx_d18.csv
+01:14:24  INFO       [sri_csv] ch2_sar_ncxl_20210506t022608652_g_sri_xx_fp_xx_d18.csv
+01:14:24  INFO       Using SLI geometry CSV: ch2_sar_ncxl_20210506t022608652_g_sli_xx_fp_xx_d18.csv
+01:14:24  INFO     ==============================================================
+01:14:24  INFO       STEP 2  |  Parse Geometry CSV
+01:14:24  INFO     ==============================================================
+01:14:24  INFO       SLI geometry CSV: 7902 azimuth tie rows x 9 range tie cols = 71118 total tie points
+01:14:24  INFO       Parsed in 0.21 s
+01:14:24  INFO       Tie-point grid: 7902 az x 9 rng  lat [-89.2460, -85.7099]  lon [-166.6978, -71.9498]
+01:14:24  INFO     ==============================================================
+01:14:24  INFO       STEP 3  |  Create Ground Control Points
+01:14:24  INFO     ==============================================================
+01:14:24  INFO       Created 7119 GCPs  (791 az tie rows x 9 range cols)  [stride=10]
+01:14:24  INFO       src CRS: GEOGCS["GCS_Moon",DATUM["D_Moon",SPHEROID["Moon",1737400,0]],PRIMEM["Reference_M
+01:14:25  INFO       dst CRS: PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOO
+01:14:25  INFO       Target transform: | 20.00, 0.00,-151680.00|
+| 0.00,-20.00, 151680.00|
+| 0.00, 0.00, 1.00|
+01:14:25  INFO     ==============================================================
+01:14:25  INFO       STEP 4  |  Warp CPR -> Moon Stereographic
+01:14:25  INFO     ==============================================================
+01:14:25  INFO       Georeferenced CPR already exists: Calculated_CPR_Georeferenced.tif
+01:14:25  INFO       Loading from disk (delete to re-run reprojection).
+01:14:29  INFO       Loaded Calculated_CPR_Georeferenced.tif: shape=(15168, 15168)  valid=4,205,601  nodata=nan
+01:14:29  INFO       Georeferenced CPR: shape=(15168, 15168)  valid=4,205,601
+01:14:29  INFO     ==============================================================
+01:14:29  INFO       STEP 5  |  Load Official CPR
+01:14:29  INFO     ==============================================================
+01:14:34  INFO       Loaded CPR.tif: shape=(15168, 15168)  valid=166,862,341  nodata=nan
+01:14:34  INFO       Loaded in 4.75 s
+01:14:34  INFO     ==============================================================
+01:14:34  INFO       STEP 6  |  Extract Overlap
+01:14:34  INFO     ==============================================================
+01:14:36  INFO       Overlap pixels: 3,270,277  (calc valid=4,205,601, official valid=166,862,341)
+01:14:36  INFO       Overlap pixels  : 3,270,277
+01:14:36  INFO       Target total    : 230,068,224
+01:14:36  INFO       Overlap fraction: 1.421%
+01:14:36  INFO     ==============================================================
+01:14:36  INFO       STEP 7  |  Per-Raster Statistics
+01:14:36  INFO     ==============================================================
+01:14:36  INFO     Georeferenced Calculated CPR:
+01:14:39  INFO       [Calc CPR (georef)]
+01:14:39  INFO         valid   : 4,205,601
+01:14:39  INFO         total   : 230,068,224
+01:14:39  INFO         nan     : 225,862,623
+01:14:39  INFO         inf     : 0
+01:14:39  INFO         min     : 0.00713058
+01:14:39  INFO         max     : 2.85692
+01:14:39  INFO         mean    : 0.231168
+01:14:39  INFO         median  : 0.213646
+01:14:39  INFO         std     : 0.117982
+01:14:39  INFO         Percentiles:
+01:14:39  INFO           p01 = 0.0463
+01:14:39  INFO           p05 = 0.0802
+01:14:39  INFO           p10 = 0.1040
+01:14:39  INFO           p25 = 0.1510
+01:14:39  INFO           p50 = 0.2136
+01:14:39  INFO           p75 = 0.2873
+01:14:39  INFO           p90 = 0.3721
+01:14:39  INFO           p95 = 0.4404
+01:14:39  INFO           p99 = 0.6284
+01:14:39  INFO     Official CPR:
+01:15:01  INFO       [Official CPR]
+01:15:01  INFO         valid   : 166,862,341
+01:15:01  INFO         total   : 230,068,224
+01:15:01  INFO         nan     : 63,205,883
+01:15:01  INFO         inf     : 0
+01:15:01  INFO         min     : 0.00204408
+01:15:01  INFO         max     : 4.18326
+01:15:01  INFO         mean    : 0.266192
+01:15:01  INFO         median  : 0.233867
+01:15:01  INFO         std     : 0.159931
+01:15:01  INFO         Percentiles:
+01:15:01  INFO           p01 = 0.0321
+01:15:01  INFO           p05 = 0.0713
+01:15:01  INFO           p10 = 0.1007
+01:15:01  INFO           p25 = 0.1572
+01:15:01  INFO           p50 = 0.2339
+01:15:01  INFO           p75 = 0.3387
+01:15:01  INFO           p90 = 0.4685
+01:15:01  INFO           p95 = 0.5697
+01:15:01  INFO           p99 = 0.8085
+01:15:01  INFO     Overlap pixels — Calculated:
+01:15:01  INFO       [Calc (overlap)]
+01:15:01  INFO         valid   : 3,270,277
+01:15:01  INFO         total   : 3,270,277
+01:15:01  INFO         nan     : 0
+01:15:01  INFO         inf     : 0
+01:15:01  INFO         min     : 0.00713058
+01:15:01  INFO         max     : 2.60113
+01:15:01  INFO         mean    : 0.221315
+01:15:01  INFO         median  : 0.203646
+01:15:01  INFO         std     : 0.114484
+01:15:01  INFO         Percentiles:
+01:15:01  INFO           p01 = 0.0454
+01:15:01  INFO           p05 = 0.0768
+01:15:01  INFO           p10 = 0.0988
+01:15:01  INFO           p25 = 0.1430
+01:15:01  INFO           p50 = 0.2036
+01:15:01  INFO           p75 = 0.2760
+01:15:01  INFO           p90 = 0.3581
+01:15:01  INFO           p95 = 0.4233
+01:15:01  INFO           p99 = 0.6071
+01:15:01  INFO     Overlap pixels — Official:
+01:15:01  INFO       [Official (overlap)]
+01:15:01  INFO         valid   : 3,270,277
+01:15:01  INFO         total   : 3,270,277
+01:15:01  INFO         nan     : 0
+01:15:01  INFO         inf     : 0
+01:15:01  INFO         min     : 0.00954488
+01:15:01  INFO         max     : 1.88107
+01:15:01  INFO         mean    : 0.21437
+01:15:01  INFO         median  : 0.186317
+01:15:01  INFO         std     : 0.134433
+01:15:01  INFO         Percentiles:
+01:15:01  INFO           p01 = 0.0358
+01:15:01  INFO           p05 = 0.0551
+01:15:01  INFO           p10 = 0.0727
+01:15:01  INFO           p25 = 0.1168
+01:15:01  INFO           p50 = 0.1863
+01:15:01  INFO           p75 = 0.2813
+01:15:01  INFO           p90 = 0.3873
+01:15:01  INFO           p95 = 0.4623
+01:15:01  INFO           p99 = 0.6636
+01:15:01  INFO     ==============================================================
+01:15:01  INFO       STEP 8  |  Quantitative Metrics
+01:15:01  INFO     ==============================================================
+01:15:01  INFO       Computing metrics on 3,270,277 overlap pixels ...
+01:15:03  INFO       Computing SSIM (may take a moment) ...
+01:15:06  INFO       Computing histogram intersection ...
+01:15:06  INFO       Computing mutual information ...
+01:15:08  INFO         n_pixels                 : 3,270,277
+01:15:08  INFO         pearson_r                : 0.079023
+01:15:08  INFO         pearson_pval             : 0.000000
+01:15:08  INFO         spearman_r               : 0.068410
+01:15:08  INFO         spearman_pval            : 0.000000
+01:15:08  INFO         rmse                     : 0.169690
+01:15:08  INFO         mae                      : 0.126969
+01:15:08  INFO         bias                     : 0.006945
+01:15:08  INFO         r2                       : -0.593307
+01:15:08  INFO         ssim                     : 0.944023
+01:15:08  INFO         hist_intersection        : 0.870363
+01:15:08  INFO         mutual_information       : 0.002575
+01:15:08  INFO     ==============================================================
+01:15:08  INFO       STEP 9  |  Generate Figures
+01:15:08  INFO     ==============================================================
+01:15:08  INFO       Generating side-by-side CPR maps ...
+01:15:14  INFO       Saved: validation_maps.png
+01:15:14  INFO       Generating scatter plot ...
+01:15:16  INFO       Saved: validation_scatter.png
+01:15:16  INFO       Generating difference map ...
+01:15:20  INFO       Saved: difference_map.png
+01:15:20  INFO       Generating absolute difference map ...
+01:15:23  INFO       Saved: absolute_difference.png
+01:15:23  INFO       Generating histogram comparison ...
+01:15:24  INFO       Saved: histogram_comparison.png
+01:15:24  INFO       Generating Q-Q plot ...
+01:15:24  INFO       Saved: qq_plot.png
+01:15:24  INFO       Generating box plot ...
+01:15:25  INFO       Saved: boxplot.png
+01:15:25  INFO     ==============================================================
+01:15:25  INFO       STEP 10  |  Write Validation Report
+01:15:25  INFO     ==============================================================
+01:15:25  INFO       Report written: validation_report.txt
+01:15:25  INFO     ==============================================================
+01:15:25  INFO       FINAL SUMMARY
+01:15:25  INFO     ==============================================================
+01:15:25  INFO     
+  ---------------------------------------------------------------
+  Chandrayaan-2 DFSAR CPR Validation Summary
+  ---------------------------------------------------------------
+  Overlap pixels          : 3,270,277  (1.42% of target)
+
+  Pearson r               : 0.0790
+  Spearman r              : 0.0684
+  RMSE                    : 0.1697
+  MAE                     : 0.1270
+  Bias (calc - official)  : +0.0069
+  R²                      : -0.5933
+  SSIM                    : 0.9440
+  Histogram intersection  : 0.8704
+  Mutual information      : 0.0026
+
+  Calculated CPR median   : 0.2136
+  Official CPR median     : 0.2339
+
+  Output files
+  ---------------------------------------------------------------
+  Georeferenced CPR       : C:\Users\navne\Desktop\ISRO_Hackathon\validation\outputs\Calculated_CPR_Georeferenced.tif
+  Validation report       : C:\Users\navne\Desktop\ISRO_Hackathon\validation\outputs\validation_report.txt
+  Figures                 : C:\Users\navne\Desktop\ISRO_Hackathon\validation\outputs\figures
+  Log                     : C:\Users\navne\Desktop\ISRO_Hackathon\validation\outputs\logs\validation.log
+
+  Total runtime           : 1.0 min
+  ---------------------------------------------------------------
+
+01:15:25  INFO     Validation pipeline completed successfully.

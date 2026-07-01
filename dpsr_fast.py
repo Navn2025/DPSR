@@ -371,12 +371,13 @@ def run_dpsr():
               f"  psr={psr_val}  dpsr={int(dpsr_val)}"
               f"  (expected dpsr={int(expect_dpsr)})")
 
+
     print("\n" + "=" * 60)
     print("Done.")
     print(f"  DPSR raster  → {out_path}")
     print(f"  Summary plot → {IMG_DIR / 'DPSR_comparison.png'}")
     print("=" * 60)
 
-
+    
 if __name__ == "__main__":
     run_dpsr()
