@@ -1,0 +1,40 @@
+2026-06-30 19:55:02  INFO      pipeline                      Log \u2192 C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\outputs\processing.log
+2026-06-30 19:55:02  INFO      pipeline                      \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+2026-06-30 19:55:02  INFO      pipeline                        CH-2 DFSAR Lunar South Pole Ice Detection Pipeline � START
+2026-06-30 19:55:02  INFO      pipeline                      \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+2026-06-30 19:55:02  INFO      pipeline.loader               === Dataset Discovery START ===
+2026-06-30 19:55:03  INFO      pipeline.loader               DEM (override): LOLA_DEM_20m.tif  (15168�15168, CRS=PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS�)
+2026-06-30 19:55:03  INFO      pipeline.loader               PSR (override): LOLA_PSR_75S_120M_82S_060M_5KM2_FINAL.shp
+2026-06-30 19:55:04  INFO      pipeline.loader               DPSR (override): DPSR.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR root scan found 16 raster(s).
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [CPR]: ch2_sar_ndxl_20250630mpcpspwest_d_cpr_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [SRD]: ch2_sar_ndxl_20250630mpcpspwest_d_srd_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [TRT]: ch2_sar_ndxl_20250630mpcpspwest_d_trt_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [EVN]: ch2_sar_ndxl_20250630my4rspwest_d_evn_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [HLX]: ch2_sar_ndxl_20250630my4rspwest_d_hlx_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [ODD]: ch2_sar_ndxl_20250630my4rspwest_d_odd_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [VOL]: ch2_sar_ndxl_20250630my4rspwest_d_vol_xx_fp_xx_xxx.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [GRI]: ch2_sar_ncxl_20251106t221014810_d_gri_in_cp_xx_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [GRI_p_lh_d18]: ch2_sar_ncxl_20251106t221014810_d_gri_xx_cp_lh_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [GRI_p_lv_d18]: ch2_sar_ncxl_20251106t221014810_d_gri_xx_cp_lv_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [SLI]: ch2_sar_ncxl_20251106t221014810_d_sli_xx_cp_lh_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [SLI_p_lv_d18]: ch2_sar_ncxl_20251106t221014810_d_sli_xx_cp_lv_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [SRI]: ch2_sar_ncxl_20251106t221014810_d_sri_in_cp_xx_d18.tif
+2026-06-30 19:55:04  INFO      pipeline.loader               DFSAR [SRI_p_xx_d18]: ch2_sar_ncxl_20251106t221014810_d_sri_ma_cp_xx_d18.tif
+2026-06-30 19:55:05  INFO      pipeline.loader               DFSAR [SRI_p_lh_d18]: ch2_sar_ncxl_20251106t221014810_d_sri_xx_cp_lh_d18.tif
+2026-06-30 19:55:05  INFO      pipeline.loader               DFSAR [SRI_p_lv_d18]: ch2_sar_ncxl_20251106t221014810_d_sri_xx_cp_lv_d18.tif
+2026-06-30 19:55:05  INFO      pipeline.loader               Discovery complete � 18 raster(s), 1 vector(s)
+2026-06-30 19:55:05  INFO      pipeline                      [Discovery] done in 2.52s
+Traceback (most recent call last):
+  File "C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\main.py", line 316, in <module>
+    run_pipeline()
+  File "C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\main.py", line 90, in run_pipeline
+    catalog.print_catalog()
+  File "C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\loader.py", line 232, in print_catalog
+    section("STEP 1 � DISCOVERED DATASETS")
+  File "C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\utils.py", line 115, in section
+    print(f"\n{bar}\n  {title}\n{bar}")
+  File "C:\Users\navne\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 2-71: character maps to <undefined>

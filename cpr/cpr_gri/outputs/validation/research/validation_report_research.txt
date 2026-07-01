@@ -1,0 +1,68 @@
+======================================================================
+Chandrayaan-2 DFSAR GRI -> CPR Pipeline -- Validation Report
+Mode               : RESEARCH
+======================================================================
+Scene              : faustini  (20210506)
+Formula            : CPR(mu_c) = (sigma_HH+sigma_VV+2*sqrt(sigma_HH*sigma_VV)) / (sigma_HH+sigma_VV-2*sqrt(sigma_HH*sigma_VV)), then log10-rescaled onto the output range  (published co-pol-only formula)
+Assumption         : HH and VV assumed fully coherent/correlated (quasi-specular/Bragg regime); no HV/VH used. Raw formula saturates on most real terrain (median HH-VV gap ~0.6dB, formula needs >15dB to stay under CPR=2), so output is log10(raw) linearly rescaled from its own P1-P99 range [82.3, 1.58e+06] (raw CPR units) onto (0.0, 2.0) -- NOT the literal unscaled formula value. See cpr.compute_cpr_research docstring.
+Calibration        : sigma0_dB = 20*log10(DN) - 70.308868  (raw uint16 DN detected)
+
+INPUT RASTERS
+----------------------------------------------------------------------
+Dimensions         : 207 x 14047 (range x azimuth)
+Multilook          : (19, 3)  = 57 looks (matches SLI pipeline)
+
+CPR_GRI STATISTICS (log-rescaled display values)
+----------------------------------------------------------------------
+Raw formula min/median/max : 25.99 / 858.1 / 1.349e+10
+Rescale window (raw units) : [82.26, 1.579e+06]  -> (0.0, 2.0)
+
+Min                : 0.000000
+Max                : 2.000000
+Mean               : 0.564259
+Median             : 0.475505
+Std                : 0.389962
+Valid pixels       : 2,892,335 / 2,907,729  (99.47%)
+Invalid pixels     : 15,394  (0.53%)
+P01                : 0.0000
+P05                : 0.1068
+P10                : 0.1670
+P25                : 0.2893
+P50                : 0.4755
+P75                : 0.7355
+P90                : 1.0861
+P95                : 1.3610
+P99                : 2.0000
+
+COMPARISON VS OFFICIAL DFSAR CPR MOSAIC (2025-06-30, different acquisition)
+----------------------------------------------------------------------
+Co-valid pixels    : 2,141,158
+Pearson r          : -0.2128  (p=0.00e+00)
+Spearman rho       : -0.3073  (p=0.00e+00)
+RMSE               : 0.4897
+MAE                : 0.3638
+Bias (ours-ref)    : +0.1629
+R^2                : -5.1441
+Histogram overlap  : 0.7546
+Ours  mean/median  : 0.5401 / 0.4487
+Ref   mean/median  : 0.3772 / 0.3311
+
+INTERPRETATION
+----------------------------------------------------------------------
+Spatial pattern: Pearson r=-0.213 and Spearman rho=-0.307 agree and indicate a weak negative relationship between CPR_GRI and the official mosaic across the 2,141,158 co-valid pixels.
+Absolute agreement is POOR (R^2=-5.14) with bias +0.163. This published CPR(mu_c) formula assumes HH and VV are FULLY coherent/correlated (the opposite extreme from the default pipeline's reflection-symmetry assumption of zero correlation) -- it is also numerically ill-conditioned wherever sigma_HH ~ sigma_VV, since the denominator (sqrt(sigma_HH)-sqrt(sigma_VV))^2 approaches zero there and the ratio diverges. Large disagreement with the official mosaic indicates the true HH-VV correlation for this terrain lies somewhere between the two extremes assumed by the default and --research formulas.
+Practical implication: treat CPR(mu_c) values as a research reference computed exactly per the published formula, not a drop-in replacement for the default GRI approximation or the exact SLI-based CPR -- compare its spatial pattern (not absolute scale) against the other products.
+Remaining scatter is also expected from: (a) different acquisition dates/geometry between this GRI scene and the 2025-06-30 mosaic, and (b) nearest-neighbour resampling error in the manual polar-stereographic georeferencing used for this comparison.
+
+RESOURCE USAGE
+----------------------------------------------------------------------
+Peak tracked array memory : 100 MB
+Total runtime             : 15.89 s
+
+OUTPUT FILES
+----------------------------------------------------------------------
+CPR GeoTIFF        : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\cpr_gri\Calculated_CPR_GRI_research.tif
+Previews           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research
+Validation figures : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\validation\research
+Log file           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\logs\cpr_gri_pipeline.log
+======================================================================

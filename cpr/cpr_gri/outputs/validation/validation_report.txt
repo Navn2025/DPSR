@@ -1,0 +1,65 @@
+======================================================================
+Chandrayaan-2 DFSAR GRI -> CPR Pipeline -- Validation Report
+Mode               : DEFAULT
+======================================================================
+Scene              : faustini  (20210506)
+Formula            : CPR = 1 + 4*P_XP/(P_HH+P_VV)  (reflection-symmetry approximation)
+Assumption         : Re(<S_HH S_VV*>) ~ 0 -- GRI is a detected/intensity product with no inter-channel phase
+Calibration        : sigma0_dB = 20*log10(DN) - 70.308868  (raw uint16 DN detected)
+
+INPUT RASTERS
+----------------------------------------------------------------------
+Dimensions         : 207 x 14047 (range x azimuth)
+Multilook          : (19, 3)  = 57 looks (matches SLI pipeline)
+
+CPR_GRI STATISTICS
+----------------------------------------------------------------------
+Min                : 1.006444
+Max                : 2.064566
+Mean               : 1.350956
+Median             : 1.342995
+Std                : 0.138229
+Valid pixels       : 2,893,682 / 2,907,729  (99.52%)
+Invalid pixels     : 14,047  (0.48%)
+P01                : 1.0915
+P05                : 1.1490
+P10                : 1.1806
+P25                : 1.2449
+P50                : 1.3430
+P75                : 1.4402
+P90                : 1.5342
+P95                : 1.5936
+P99                : 1.7155
+
+COMPARISON VS OFFICIAL DFSAR CPR MOSAIC (2025-06-30, different acquisition)
+----------------------------------------------------------------------
+Co-valid pixels    : 2,141,932
+Pearson r          : 0.6504  (p=0.00e+00)
+Spearman rho       : 0.6953  (p=0.00e+00)
+RMSE               : 0.9844
+MAE                : 0.9729
+Bias (ours-ref)    : +0.9729
+R^2                : -23.8250
+Histogram overlap  : 0.0090
+Ours  mean/median  : 1.3501 / 1.3490
+Ref   mean/median  : 0.3772 / 0.3311
+
+INTERPRETATION
+----------------------------------------------------------------------
+Spatial pattern: Pearson r=+0.650 and Spearman rho=+0.695 agree and indicate a strong positive relationship between CPR_GRI and the official mosaic across the 2,141,932 co-valid pixels.
+Absolute agreement is POOR (R^2=-23.83, i.e. worse than predicting the mosaic's mean everywhere) with a large systematic bias of +0.973. This is EXPECTED and traceable to a specific structural limitation of the power-only approximation, not a bug: CPR_GRI = 1 + 4*P_XP/(P_HH+P_VV) is bounded below by 1.0 by construction (the added term is never negative), whereas the official mosaic has median 0.331 -- i.e. predominantly OC-dominant, CPR<1 bare-regolith terrain. Reaching CPR<1 requires a positive Re(<S_HH S_VV*>) co-pol correlation term, which this approximation drops under the reflection-symmetry assumption (see cpr.py). The comparison itself is therefore direct empirical evidence that Re(<S_HH S_VV*>) is NOT negligible for this terrain, i.e. that reflection symmetry is a poor assumption here -- exactly the kind of information loss the task asked us to state explicitly rather than paper over.
+Practical implication: CPR_GRI's ABSOLUTE values should not be compared against the official CPR>1 ice-candidate threshold. It may still be useful for RELATIVE / spatial-anomaly analysis (identifying pixels anomalous versus their local background) within a single GRI scene, but the exact SLI-based CPR pipeline remains the scientifically valid product for absolute CPR thresholding and should be preferred wherever SLI data exists.
+Remaining scatter is also expected from: (a) different acquisition dates/geometry between this GRI scene and the 2025-06-30 mosaic, and (b) nearest-neighbour resampling error in the manual polar-stereographic georeferencing used for this comparison.
+
+RESOURCE USAGE
+----------------------------------------------------------------------
+Peak tracked array memory : 100 MB
+Total runtime             : 34.35 s
+
+OUTPUT FILES
+----------------------------------------------------------------------
+CPR GeoTIFF        : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\cpr_gri\Calculated_CPR_GRI.tif
+Previews           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews
+Validation figures : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\validation
+Log file           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\logs\cpr_gri_pipeline.log
+======================================================================

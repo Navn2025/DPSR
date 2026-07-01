@@ -1,0 +1,71 @@
+00:18:29  INFO     ============================================================
+00:18:29  INFO       CPR VALIDATION
+00:18:29  INFO     ============================================================
+00:18:29  INFO     
+Our CPR    : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\outputs\cpr\Calculated_CPR.tif
+00:18:36  INFO       Shape  : (272631, 244)
+00:18:36  INFO       CRS    : None
+00:18:36  INFO       Nodata : -9999.0
+00:18:36  INFO     
+Official   : C:\Users\navne\Desktop\ISRO_Hackathon\DFSAR\data_pipeline\outputs\aligned\CPR.tif
+00:18:45  INFO       Shape  : (15168, 15168)
+00:18:45  INFO       CRS    : PROJCS["POLAR_STEREOGRAPHIC MOON",GEOGCS["GCS_MOON",DATUM["D_MOON",SPHEROID["MOON",1737400,0]],PRIMEM["Reference_Meridian",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]]],PROJECTION["Polar_Stereographic"],PARAMETER["latitude_of_origin",-90],PARAMETER["central_meridian",0],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1],AXIS["Easting",NORTH],AXIS["Northing",NORTH]]
+00:18:45  INFO       Nodata : nan
+00:18:45  INFO     
+============================================================
+00:18:45  INFO       STATISTICAL SUMMARIES
+00:18:45  INFO     ============================================================
+00:18:55  INFO     
+  Our CPR  (circular basis):
+00:18:55  INFO         Valid pixels : 66,521,964
+00:18:55  INFO         Min / Max    : 0.0018  /  14.8484
+00:18:55  INFO         Mean         : 0.2313
+00:18:55  INFO         Median       : 0.1892
+00:18:55  INFO         Std          : 0.1730
+00:18:55  INFO         Percentiles  :
+00:18:55  INFO           P01 = 0.0296
+00:18:55  INFO           P05 = 0.0553
+00:18:55  INFO           P10 = 0.0751
+00:18:55  INFO           P25 = 0.1193
+00:18:55  INFO           P50 = 0.1892
+00:18:55  INFO           P75 = 0.2921
+00:18:55  INFO           P90 = 0.4308
+00:18:55  INFO           P95 = 0.5462
+00:18:55  INFO           P99 = 0.8653
+00:19:16  INFO     
+  Official CPR (Putrevu 2023):
+00:19:16  INFO         Valid pixels : 166,862,341
+00:19:16  INFO         Min / Max    : 0.0020  /  4.1833
+00:19:16  INFO         Mean         : 0.2662
+00:19:16  INFO         Median       : 0.2339
+00:19:16  INFO         Std          : 0.1599
+00:19:16  INFO         Percentiles  :
+00:19:16  INFO           P01 = 0.0321
+00:19:16  INFO           P05 = 0.0713
+00:19:16  INFO           P10 = 0.1007
+00:19:16  INFO           P25 = 0.1572
+00:19:16  INFO           P50 = 0.2339
+00:19:16  INFO           P75 = 0.3387
+00:19:16  INFO           P90 = 0.4685
+00:19:16  INFO           P95 = 0.5697
+00:19:16  INFO           P99 = 0.8085
+00:19:16  INFO     
+Spatial comparison skipped: our CPR has no CRS (SLI identity transform).
+00:19:16  INFO       -> Run georeferencing from geometry CSV before spatial comparison.
+00:19:16  INFO     
+============================================================
+00:19:16  INFO       GENERATING FIGURES
+00:19:16  INFO     ============================================================
+00:19:19  INFO       Saved: C:\Users\navne\Desktop\ISRO_Hackathon\cpr\outputs\previews\validation_maps.png
+00:19:32  INFO       Saved: C:\Users\navne\Desktop\ISRO_Hackathon\cpr\outputs\previews\validation_histogram.png
+00:19:32  INFO     
+============================================================
+00:19:32  INFO       VALIDATION SUMMARY
+00:19:32  INFO     ============================================================
+00:19:32  INFO       Our CPR   median : 0.1892
+00:19:32  INFO       Official  median : 0.2339
+00:19:32  INFO       Expected range   : 0.03 - 2.37 (Putrevu et al. 2023)
+00:19:32  INFO       Ratio our/official median : 0.809
+00:19:32  INFO       ASSESSMENT: Median within 2x of official -> formula plausible.
+00:19:32  INFO     
+Validation complete.

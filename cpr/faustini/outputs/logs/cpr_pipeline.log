@@ -1,0 +1,248 @@
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | Log file: C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\logs\cpr_pipeline.log
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | Mode: DEFAULT (exact coherent SC/OC formula)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   STEP 1  |  Read SLI Metadata
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | DEBUG    | cpr_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hh_d18.tif  (244W x 252825H)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | --------------------------------------------------
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Polarisation : HH
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hh_d18.tif
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Width        : 244 samples
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Height       : 252825 lines
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   CRS          : None
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   NoData value : None
+2026-07-01 15:47:45 | DEBUG    | cpr_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hv_d18.tif  (244W x 252825H)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | --------------------------------------------------
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Polarisation : HV
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hv_d18.tif
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Width        : 244 samples
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Height       : 252825 lines
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   CRS          : None
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   NoData value : None
+2026-07-01 15:47:45 | DEBUG    | cpr_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vh_d18.tif  (244W x 252825H)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | --------------------------------------------------
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Polarisation : VH
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vh_d18.tif
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Width        : 244 samples
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Height       : 252825 lines
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   CRS          : None
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   NoData value : None
+2026-07-01 15:47:45 | DEBUG    | cpr_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vv_d18.tif  (244W x 252825H)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | --------------------------------------------------
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Polarisation : VV
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vv_d18.tif
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Width        : 244 samples
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Height       : 252825 lines
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   CRS          : None
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   NoData value : None
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | 
+  Scene dimensions : 244 samples (range) x 252825 lines (azimuth)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   Pixel spacing    : 1.0 m (range) x 1.0 m (azimuth)
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   STEP 2  |  Validate Raster Consistency
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | INFO     | cpr_pipeline.validator       | Consistency check PASSED: all 4 bands share identical dimensions (244W x 252825H), CRS, transform, resolution.
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 |   STEP 3  |  Load HH, VV -> Form OC = S_HH + S_VV
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:45 | INFO     | cpr_pipeline                 | Loading HH complex SLC ...
+2026-07-01 15:47:48 | INFO     | cpr_pipeline.reader          |   Loaded HH: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 15:47:48 | INFO     | cpr_pipeline                 |   HH loaded in 3.08 s  (471 MB)
+2026-07-01 15:47:48 | INFO     | cpr_pipeline                 | Loading VV complex SLC ...
+2026-07-01 15:47:52 | INFO     | cpr_pipeline.reader          |   Loaded VV: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 15:47:52 | INFO     | cpr_pipeline                 |   VV loaded in 4.32 s  (471 MB)
+2026-07-01 15:47:52 | INFO     | cpr_pipeline                 |   OC field formed  (471 MB complex64)
+2026-07-01 15:47:53 | INFO     | cpr_pipeline                 |   S_HH and S_VV freed from memory.
+2026-07-01 15:47:53 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:53 | INFO     | cpr_pipeline                 |   STEP 4  |  Load HV, VH -> Form SC = (S_HH - S_VV) + 2j * S_XP
+2026-07-01 15:47:53 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:47:53 | INFO     | cpr_pipeline                 | Loading HV complex SLC ...
+2026-07-01 15:47:57 | INFO     | cpr_pipeline.reader          |   Loaded HV: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 15:47:57 | INFO     | cpr_pipeline                 |   HV loaded in 4.29 s  (471 MB)
+2026-07-01 15:47:57 | INFO     | cpr_pipeline                 | Loading VH complex SLC ...
+2026-07-01 15:48:01 | INFO     | cpr_pipeline.reader          |   Loaded VH: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 15:48:01 | INFO     | cpr_pipeline                 |   VH loaded in 4.30 s  (471 MB)
+2026-07-01 15:48:02 | INFO     | cpr_pipeline                 |   S_XP (averaged cross-pol) formed; HV and VH freed.
+2026-07-01 15:48:03 | INFO     | cpr_pipeline                 |   SC field formed  (471 MB complex64)
+2026-07-01 15:48:05 | INFO     | cpr_pipeline                 |   |OC| RMS = 2.657e+03    |SC| RMS = 1.412e+03
+2026-07-01 15:48:05 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:05 | INFO     | cpr_pipeline                 |   STEP 5  |  Single-Look Power
+2026-07-01 15:48:05 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:05 | DEBUG    | cpr_pipeline.complex_builder |   Power SC: min=0.0000e+00  max=2.0192e+09  mean=1.9945e+06
+2026-07-01 15:48:05 | INFO     | cpr_pipeline                 |   P_SC formed  (235 MB float32)
+2026-07-01 15:48:06 | DEBUG    | cpr_pipeline.complex_builder |   Power OC: min=0.0000e+00  max=1.7618e+10  mean=7.0593e+06
+2026-07-01 15:48:06 | INFO     | cpr_pipeline                 |   P_OC formed  (235 MB float32)
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |   [P_SC (single-look)]
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Min    : 1.176575e-02
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Max    : 2.019219e+09
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Mean   : 2.002718e+06
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Median : 9.195878e+05
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Std    : 4.877677e+06
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     NaN    : 0
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Inf    : 0
+2026-07-01 15:48:08 | INFO     | cpr_pipeline                 |     Valid  : 61436475 / 61689300
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |   [P_OC (single-look)]
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Min    : 5.000480e-04
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Max    : 1.761813e+10
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Mean   : 7.088318e+06
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Median : 3.239579e+06
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Std    : 2.945196e+07
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     NaN    : 0
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Inf    : 0
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |     Valid  : 61436475 / 61689300
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 |   STEP 6  |  Multilook Filtering
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:10 | INFO     | cpr_pipeline                 | Applying box-car filter: (19 az x 3 rg) -- 57 effective looks
+2026-07-01 15:48:13 | INFO     | cpr_pipeline.complex_builder |   Multilook SC: window=(19az x 3rg)  effective looks=57  ml_min=1.7587e+03  ml_max=4.3865e+08
+2026-07-01 15:48:17 | INFO     | cpr_pipeline.complex_builder |   Multilook OC: window=(19az x 3rg)  effective looks=57  ml_min=1.8818e+04  ml_max=4.5764e+09
+2026-07-01 15:48:17 | INFO     | cpr_pipeline                 |   Multilook done in 7.02 s
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |   [ML_SC]
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Min    : 1.758677e+03
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Max    : 4.386460e+08
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Mean   : 1.994510e+06
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Median : 1.261064e+06
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Std    : 3.163200e+06
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     NaN    : 0
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Inf    : 0
+2026-07-01 15:48:19 | INFO     | cpr_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |   [ML_OC]
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Min    : 1.881842e+04
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Max    : 4.576394e+09
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Mean   : 7.059268e+06
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Median : 4.584706e+06
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Std    : 1.884336e+07
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     NaN    : 0
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Inf    : 0
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |   STEP 7  |  Compute CPR = ML_SC / ML_OC
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 | Formula: CPR = mean(|S_HH - S_VV + 2j*S_HV|^2) / mean(|S_HH + S_VV|^2)
+         (circular basis conversion, Putrevu et al. 2023)
+2026-07-01 15:48:20 | INFO     | cpr_pipeline                 |   epsilon = 1e-10   nodata = -9999.0
+2026-07-01 15:48:23 | DEBUG    | cpr_pipeline.cpr             |   CPR computed: total=61689300  bad/nodata=0  valid=61689300
+2026-07-01 15:48:24 | DEBUG    | cpr_pipeline.cpr             |   CPR valid: min=0.0020  max=17.1312  mean=0.3539  median=0.2900
+2026-07-01 15:48:24 | INFO     | cpr_pipeline                 |   CPR computation done in 3.75 s
+2026-07-01 15:48:24 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:24 | INFO     | cpr_pipeline                 |   STEP 8  |  CPR Statistics & Histogram
+2026-07-01 15:48:24 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |   [CPR]
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Min    : 2.042159e-03
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Max    : 1.713121e+01
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Mean   : 3.539434e-01
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Median : 2.900469e-01
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Std    : 2.530928e-01
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     NaN    : 0
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Inf    : 0
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 15:48:26 | INFO     | cpr_pipeline                 |   Percentiles:
+2026-07-01 15:48:27 | INFO     | cpr_pipeline                 |     P01 = 0.0513
+2026-07-01 15:48:27 | INFO     | cpr_pipeline                 |     P05 = 0.0912
+2026-07-01 15:48:28 | INFO     | cpr_pipeline                 |     P10 = 0.1198
+2026-07-01 15:48:29 | INFO     | cpr_pipeline                 |     P25 = 0.1841
+2026-07-01 15:48:29 | INFO     | cpr_pipeline                 |     P50 = 0.2900
+2026-07-01 15:48:30 | INFO     | cpr_pipeline                 |     P75 = 0.4500
+2026-07-01 15:48:31 | INFO     | cpr_pipeline                 |     P90 = 0.6617
+2026-07-01 15:48:32 | INFO     | cpr_pipeline                 |     P95 = 0.8308
+2026-07-01 15:48:33 | INFO     | cpr_pipeline                 |     P99 = 1.2661
+2026-07-01 15:48:33 | INFO     | cpr_pipeline                 |   Pixels with CPR > 1.0 : 2.60%  (ice candidates)
+2026-07-01 15:48:37 | INFO     | cpr_pipeline.visualizer      |   Saved histogram: CPR_histogram.png
+2026-07-01 15:48:37 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:37 | INFO     | cpr_pipeline                 |   STEP 9  |  Save Preview Images
+2026-07-01 15:48:37 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:37 | INFO     | cpr_pipeline                 | Downsample factor: 1:100
+2026-07-01 15:48:38 | INFO     | cpr_pipeline.visualizer      |   Saved: SC_power.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\SC_power.png]
+2026-07-01 15:48:39 | INFO     | cpr_pipeline.visualizer      |   Saved: OC_power.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\OC_power.png]
+2026-07-01 15:48:40 | INFO     | cpr_pipeline.visualizer      |   Saved: CPR.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\CPR.png]
+2026-07-01 15:48:40 | INFO     | cpr_pipeline                 |   All previews saved to: C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews
+2026-07-01 15:48:40 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:40 | INFO     | cpr_pipeline                 |   STEP 10  |  Save Calculated_CPR.tif
+2026-07-01 15:48:40 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:40 | INFO     | cpr_pipeline                 | Writing Calculated_CPR.tif (244W x 252825H, float32, LZW) ...
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 |   Done in 3.93 s
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 |   Saved : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\cpr\Calculated_CPR.tif
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 |   Size  : 264.6 MB
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 |   STEP 11  |  Diagnostic Report
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 | ==============================================================
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 | 
+  -------------------------------------------------------
+  Chandrayaan-2 DFSAR Full-Pol SLI -> CPR Pipeline
+  Mode          : DEFAULT (exact coherent SC/OC)
+  -------------------------------------------------------
+  Scene         : faustini  (20210506)
+  Formula       : CPR = mean(|SC|^2) / mean(|OC|^2)
+                  SC = S_HH - S_VV + 2j*(S_HV+S_VH)/2
+                  OC = S_HH + S_VV
+  Reference     : Putrevu et al. (2023) JGR Planets
+
+  INPUT RASTERS
+  -------------------------------------------------------
+  Dimensions    : 244 x 252825  (range x azimuth)
+  Bands         : 2 per file (Band1=Real, Band2=Imag)
+  Dtype         : float32 (complex SLC, I/Q)
+  Inputs        : HH  ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hh_d18.tif
+                  HV  ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hv_d18.tif
+                  VH  ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vh_d18.tif
+                  VV  ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vv_d18.tif
+
+  PROCESSING
+  -------------------------------------------------------
+  Multilook     : (19, 3)  az x rg  = 57 looks
+  Epsilon       : 1e-10
+
+  CPR STATISTICS (physical ratio)
+  -------------------------------------------------------
+  Min           : 0.002042
+  Max           : 17.131208
+  Mean          : 0.353943
+  Median        : 0.290047
+  Std           : 0.253093
+  Valid pixels  : 61,689,300 / 61,689,300  (100.00%)
+  CPR > 1 (ice) : 2.60%
+  NoData        : 0
+  NaN / Inf     : 0 / 0
+
+  EXPECTED RANGE (Putrevu et al. 2023)
+  -------------------------------------------------------
+  Bare regolith : 0.05 - 0.5
+  Ice candidates: > 1.0
+  Official mosaic median: ~0.21
+  OUTPUT FILES
+  -------------------------------------------------------
+  CPR GeoTIFF   : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\cpr\Calculated_CPR.tif
+  SC_power : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\SC_power.png
+  OC_power : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\OC_power.png
+  CPR preview   : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\CPR.png
+  CPR histogram : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\previews\CPR_histogram.png
+  Log file      : C:\Users\navne\Desktop\ISRO_Hackathon\cpr\faustini\outputs\logs\cpr_pipeline.log
+
+  TOTAL RUNTIME : 59.02 s
+  -------------------------------------------------------
+
+2026-07-01 15:48:44 | INFO     | cpr_pipeline                 | Pipeline completed successfully.

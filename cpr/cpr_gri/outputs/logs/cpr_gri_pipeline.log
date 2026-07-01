@@ -1,0 +1,247 @@
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | Log file: C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\logs\cpr_gri_pipeline.log
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | Mode: RESEARCH (published mu_c formula)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   STEP 1  |  Read GRI Metadata
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | DEBUG    | cpr_gri_pipeline.reader        | Metadata read: ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_hh_d18.tif  (207W x 14047H)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | --------------------------------------------------
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Channel      : HH
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   File         : ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_hh_d18.tif
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Width        : 207 samples
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Height       : 14047 lines
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Data type    : ('uint16',)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   CRS          : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Resolution   : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Bounds       : BoundingBox(left=0.0, bottom=14047.0, right=207.0, top=0.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   NoData value : None
+2026-07-01 14:52:07 | DEBUG    | cpr_gri_pipeline.reader        | Metadata read: ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_hv_d18.tif  (207W x 14047H)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | --------------------------------------------------
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Channel      : HV
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   File         : ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_hv_d18.tif
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Width        : 207 samples
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Height       : 14047 lines
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Data type    : ('uint16',)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   CRS          : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Resolution   : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Bounds       : BoundingBox(left=0.0, bottom=14047.0, right=207.0, top=0.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   NoData value : None
+2026-07-01 14:52:07 | DEBUG    | cpr_gri_pipeline.reader        | Metadata read: ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_vh_d18.tif  (207W x 14047H)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | --------------------------------------------------
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Channel      : VH
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   File         : ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_vh_d18.tif
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Width        : 207 samples
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Height       : 14047 lines
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Data type    : ('uint16',)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   CRS          : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Resolution   : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Bounds       : BoundingBox(left=0.0, bottom=14047.0, right=207.0, top=0.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   NoData value : None
+2026-07-01 14:52:07 | DEBUG    | cpr_gri_pipeline.reader        | Metadata read: ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_vv_d18.tif  (207W x 14047H)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | --------------------------------------------------
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Channel      : VV
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   File         : ch2_sar_ncxl_20210506t022608652_d_gri_xx_fp_vv_d18.tif
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Width        : 207 samples
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Height       : 14047 lines
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Data type    : ('uint16',)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   CRS          : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Resolution   : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Bounds       : BoundingBox(left=0.0, bottom=14047.0, right=207.0, top=0.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   NoData value : None
+2026-07-01 14:52:07 | DEBUG    | cpr_gri_pipeline.reader        | Metadata read: ch2_sar_ncxl_20210506t022608652_d_gri_in_fp_xx_d18.tif  (207W x 14047H)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | --------------------------------------------------
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Channel      : INCIDENCE
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   File         : ch2_sar_ncxl_20210506t022608652_d_gri_in_fp_xx_d18.tif
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Width        : 207 samples
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Height       : 14047 lines
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Data type    : ('float32',)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   CRS          : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Resolution   : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Bounds       : BoundingBox(left=0.0, bottom=14047.0, right=207.0, top=0.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   NoData value : None
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | 
+  Scene dimensions : 207 samples (range) x 14047 lines (azimuth)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   Pixel spacing    : (1.0, 1.0)
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   STEP 2  |  Validate Raster Consistency
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.validator     | Consistency check PASSED: all 5 rasters share identical dimensions (207W x 14047H), CRS, transform, resolution, bounds.
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   STEP 3  |  Detect Format & Calibrate to Linear Power
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.reader        |   Calibration constant parsed from label: 70.308868
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.reader        |   Loaded HH: shape=(14047, 207)  dtype=uint16  mem=5.5 MB
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   HH: detected format = 'raw_dn'  (integer dtype (uint16))
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   HH: calibrated to linear power  valid=2,893,270/2,907,729  min=3.7254e-07  max=1.1859e+01
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   HH processed in 0.19 s
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.reader        |   Loaded HV: shape=(14047, 207)  dtype=uint16  mem=5.5 MB
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   HV: detected format = 'raw_dn'  (integer dtype (uint16))
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   HV: calibrated to linear power  valid=2,893,270/2,907,729  min=9.3135e-08  max=4.9183e-01
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   HV processed in 0.19 s
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.reader        |   Loaded VH: shape=(14047, 207)  dtype=uint16  mem=5.5 MB
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   VH: detected format = 'raw_dn'  (integer dtype (uint16))
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline.preprocessing |   VH: calibrated to linear power  valid=2,893,270/2,907,729  min=9.3135e-08  max=4.2374e-01
+2026-07-01 14:52:07 | INFO     | cpr_gri_pipeline               |   VH processed in 0.20 s
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.reader        |   Loaded VV: shape=(14047, 207)  dtype=uint16  mem=5.5 MB
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   VV: detected format = 'raw_dn'  (integer dtype (uint16))
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   VV: calibrated to linear power  valid=2,893,270/2,907,729  min=8.3822e-07  max=1.2793e+01
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               |   VV processed in 0.21 s
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               |   P_XP = (P_HV + P_VH)/2 formed  valid=2,893,270/2,907,729
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               |   STEP 5  |  NoData-Aware Multilook
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline               | Window: (19az x 3rg) = 57 looks -- same as the SLI CPR pipeline
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook HH: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook VV: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook XP: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook HH: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:08 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook HV: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook VH: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline.preprocessing |   Multilook VV: (19az x 3rg)  valid_before=2,893,270  valid_after=2,893,682
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   STEP 4  |  Compute CPR_GRI (published co-pol-only mu_c formula, log-rescaled)
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline.cpr           |   CPR_research (mu_c) RAW: min=25.9930  max=13489738549.0715  median=858.1068  invalid=15,394/2,907,729 [denom~0 diverging: 1,347]
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline.cpr           |   CPR_research log-rescale window (P1-P99 of log10(raw)): [82.2571, 1579368.0335] raw CPR -> (0.0, 2.0)
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline.cpr           |   CPR_research display (log-rescaled): min=0.0000  max=2.0000  mean=0.5643  median=0.4755
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   CPR_research computed in 0.43 s
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   STEP 6  |  CPR_GRI Statistics
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   [CPR_GRI]
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Min    : 0.000000e+00
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Max    : 2.000000e+00
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Mean   : 5.642591e-01
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Median : 4.755051e-01
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Std    : 3.899619e-01
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     NaN    : 0
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Inf    : 0
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     Valid  : 2892335 / 2907729
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   Percentiles:
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P01 = 0.0000
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P05 = 0.1068
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P10 = 0.1670
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P25 = 0.2893
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P50 = 0.4755
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P75 = 0.7355
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P90 = 1.0861
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P95 = 1.3610
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |     P99 = 2.0000
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               |   STEP 7  |  Save Preview Images
+2026-07-01 14:52:09 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:11 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: HH.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research\HH.png]
+2026-07-01 14:52:12 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: HV.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research\HV.png]
+2026-07-01 14:52:13 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: VH.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research\VH.png]
+2026-07-01 14:52:15 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: VV.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research\VV.png]
+2026-07-01 14:52:16 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: CPR.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research\CPR.png]
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline.visualizer    |   Saved histogram: Histogram.png
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   All previews saved to: C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   STEP 8  |  Save Calculated_CPR_GRI_research.tif
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               | Writing Calculated_CPR_GRI_research.tif (207W x 14047H, float32, LZW) ...
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   NOTE: source GRI rasters carry CRS=None / identity transform (ground-range grid, not map-projected -- see reader.py); the output faithfully preserves that same (lack of) georeferencing rather than fabricating one. STEP 9 below performs its own independent geolocation via the geometry CSV for comparison purposes only.
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   Done in 0.17 s
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   Saved : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\cpr_gri\Calculated_CPR_GRI_research.tif
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   Size  : 12.21 MB
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   STEP 9  |  Compare Against Official DFSAR CPR Mosaic
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline               |   NOTE: the only official CPR raster in this dataset is a south-polar MOSAIC (2025-06-30), a different acquisition than this GRI scene (2021-05-06/2025-10-25). This is a spatial/order-of-magnitude consistency check against an independent product, NOT pixel-exact ground truth -- see validation.py docstring.
+2026-07-01 14:52:17 | INFO     | cpr_gri_pipeline.validation    |   Geometry tie points: N_AZ=3513, N_RNG=53  (total rows=186189)
+2026-07-01 14:52:18 | INFO     | cpr_gri_pipeline.validation    |   Full-grid lat range: [-89.2460, -85.7110]  lon range: [-166.7400, -71.9499]
+2026-07-01 14:52:18 | INFO     | cpr_gri_pipeline.validation    |   Official mosaic window: rows [11033:13665] cols [7210:12014]  (2633 x 4805 px) of full 24794 x 24181
+2026-07-01 14:52:19 | INFO     | cpr_gri_pipeline.validation    |   Sampled official CPR: 2,152,676 / 2,907,729 points valid
+2026-07-01 14:52:20 | INFO     | cpr_gri_pipeline.validation    |   Comparison (n=2,141,158): Pearson r=-0.2128  Spearman rho=-0.3073  RMSE=0.4897  MAE=0.3638  Bias=+0.1629  R2=-5.1441  HistOverlap=0.7546
+2026-07-01 14:52:20 | INFO     | cpr_gri_pipeline               |   Comparison computed in 3.05 s
+2026-07-01 14:52:21 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: Scatter.png
+2026-07-01 14:52:22 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: Difference_map.png  [C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\validation\research\Difference_map.png]
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline.visualizer    |   Saved: Histogram_overlap.png
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               |   STEP 10  |  Validation Report
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ==============================================================
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               |   Validation report saved: C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\validation\research\validation_report_research.txt
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ======================================================================
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Chandrayaan-2 DFSAR GRI -> CPR Pipeline -- Validation Report
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Mode               : RESEARCH
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ======================================================================
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Scene              : faustini  (20210506)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Formula            : CPR(mu_c) = (sigma_HH+sigma_VV+2*sqrt(sigma_HH*sigma_VV)) / (sigma_HH+sigma_VV-2*sqrt(sigma_HH*sigma_VV)), then log10-rescaled onto the output range  (published co-pol-only formula)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Assumption         : HH and VV assumed fully coherent/correlated (quasi-specular/Bragg regime); no HV/VH used. Raw formula saturates on most real terrain (median HH-VV gap ~0.6dB, formula needs >15dB to stay under CPR=2), so output is log10(raw) linearly rescaled from its own P1-P99 range [82.3, 1.58e+06] (raw CPR units) onto (0.0, 2.0) -- NOT the literal unscaled formula value. See cpr.compute_cpr_research docstring.
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Calibration        : sigma0_dB = 20*log10(DN) - 70.308868  (raw uint16 DN detected)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | INPUT RASTERS
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Dimensions         : 207 x 14047 (range x azimuth)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Multilook          : (19, 3)  = 57 looks (matches SLI pipeline)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | CPR_GRI STATISTICS (log-rescaled display values)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Raw formula min/median/max : 25.99 / 858.1 / 1.349e+10
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Rescale window (raw units) : [82.26, 1.579e+06]  -> (0.0, 2.0)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Min                : 0.000000
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Max                : 2.000000
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Mean               : 0.564259
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Median             : 0.475505
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Std                : 0.389962
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Valid pixels       : 2,892,335 / 2,907,729  (99.47%)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Invalid pixels     : 15,394  (0.53%)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P01                : 0.0000
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P05                : 0.1068
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P10                : 0.1670
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P25                : 0.2893
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P50                : 0.4755
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P75                : 0.7355
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P90                : 1.0861
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P95                : 1.3610
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | P99                : 2.0000
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | COMPARISON VS OFFICIAL DFSAR CPR MOSAIC (2025-06-30, different acquisition)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Co-valid pixels    : 2,141,158
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Pearson r          : -0.2128  (p=0.00e+00)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Spearman rho       : -0.3073  (p=0.00e+00)
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | RMSE               : 0.4897
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | MAE                : 0.3638
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Bias (ours-ref)    : +0.1629
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | R^2                : -5.1441
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Histogram overlap  : 0.7546
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Ours  mean/median  : 0.5401 / 0.4487
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Ref   mean/median  : 0.3772 / 0.3311
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | INTERPRETATION
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Spatial pattern: Pearson r=-0.213 and Spearman rho=-0.307 agree and indicate a weak negative relationship between CPR_GRI and the official mosaic across the 2,141,158 co-valid pixels.
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Absolute agreement is POOR (R^2=-5.14) with bias +0.163. This published CPR(mu_c) formula assumes HH and VV are FULLY coherent/correlated (the opposite extreme from the default pipeline's reflection-symmetry assumption of zero correlation) -- it is also numerically ill-conditioned wherever sigma_HH ~ sigma_VV, since the denominator (sqrt(sigma_HH)-sqrt(sigma_VV))^2 approaches zero there and the ratio diverges. Large disagreement with the official mosaic indicates the true HH-VV correlation for this terrain lies somewhere between the two extremes assumed by the default and --research formulas.
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Practical implication: treat CPR(mu_c) values as a research reference computed exactly per the published formula, not a drop-in replacement for the default GRI approximation or the exact SLI-based CPR -- compare its spatial pattern (not absolute scale) against the other products.
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Remaining scatter is also expected from: (a) different acquisition dates/geometry between this GRI scene and the 2025-06-30 mosaic, and (b) nearest-neighbour resampling error in the manual polar-stereographic georeferencing used for this comparison.
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | RESOURCE USAGE
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Peak tracked array memory : 100 MB
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Total runtime             : 15.89 s
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | 
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | OUTPUT FILES
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ----------------------------------------------------------------------
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | CPR GeoTIFF        : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\cpr_gri\Calculated_CPR_GRI_research.tif
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Previews           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\previews\research
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Validation figures : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\validation\research
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Log file           : C:\Users\navne\Desktop\ISRO_Hackathon\cpr_gri\outputs\logs\cpr_gri_pipeline.log
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | ======================================================================
+2026-07-01 14:52:23 | INFO     | cpr_gri_pipeline               | Pipeline completed successfully.

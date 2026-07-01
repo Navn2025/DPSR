@@ -1,0 +1,245 @@
+2026-07-01 09:48:01 | INFO     | dop_pipeline                 | Log file: C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\logs\dop_pipeline.log
+2026-07-01 09:48:01 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:01 | INFO     | dop_pipeline                 |   STEP 1  |  Read SLI Metadata
+2026-07-01 09:48:01 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:02 | DEBUG    | dop_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hh_d18.tif  (244W x 252825H)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | --------------------------------------------------
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Polarisation : HH
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hh_d18.tif
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Width        : 244 samples
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Height       : 252825 lines
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   CRS          : None
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   NoData value : None
+2026-07-01 09:48:02 | DEBUG    | dop_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hv_d18.tif  (244W x 252825H)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | --------------------------------------------------
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Polarisation : HV
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_hv_d18.tif
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Width        : 244 samples
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Height       : 252825 lines
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   CRS          : None
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   NoData value : None
+2026-07-01 09:48:02 | DEBUG    | dop_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vh_d18.tif  (244W x 252825H)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | --------------------------------------------------
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Polarisation : VH
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vh_d18.tif
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Width        : 244 samples
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Height       : 252825 lines
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   CRS          : None
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   NoData value : None
+2026-07-01 09:48:02 | DEBUG    | dop_pipeline.reader          | Metadata read: ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vv_d18.tif  (244W x 252825H)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | --------------------------------------------------
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Polarisation : VV
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   File         : ch2_sar_ncxl_20210506t022608652_d_sli_xx_fp_vv_d18.tif
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Width        : 244 samples
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Height       : 252825 lines
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Bands        : 2  (Band 1 = Real, Band 2 = Imaginary)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Data type    : ('float32', 'float32')
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   CRS          : None
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Resolution   : (1.0, 1.0)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Transform    : | 1.00, 0.00, 0.00|
+| 0.00, 1.00, 0.00|
+| 0.00, 0.00, 1.00|
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   NoData value : None
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | 
+  Scene dimensions : 244 samples (range) x 252825 lines (azimuth)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Pixel spacing    : 1.0 m (range) x 1.0 m (azimuth)
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   Explicit NoData sentinel present in any channel: False
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   STEP 2  |  Validate Raster Consistency
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:02 | INFO     | dop_pipeline.validator       | Consistency check PASSED: all 4 bands share identical dimensions (244W x 252825H), CRS, transform, resolution.
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 |   STEP 3  |  Construct Complex Scattering Matrix S
+2026-07-01 09:48:02 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:48:23 | INFO     | dop_pipeline.reader          |   Loaded HH: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 09:48:24 | INFO     | dop_pipeline                 |   HH loaded in 22.24 s  (471 MB)
+2026-07-01 09:48:51 | INFO     | dop_pipeline.reader          |   Loaded HV: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 09:48:51 | INFO     | dop_pipeline                 |   HV loaded in 25.34 s  (471 MB)
+2026-07-01 09:49:15 | INFO     | dop_pipeline.reader          |   Loaded VH: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 09:49:15 | INFO     | dop_pipeline                 |   VH loaded in 22.54 s  (471 MB)
+2026-07-01 09:49:39 | INFO     | dop_pipeline.reader          |   Loaded VV: shape=(252825, 244)  dtype=complex64  mem=470.7 MB
+2026-07-01 09:49:40 | INFO     | dop_pipeline                 |   VV loaded in 23.56 s  (471 MB)
+2026-07-01 09:49:42 | INFO     | dop_pipeline                 |   S = [[S_HH, S_HV], [S_VH, S_VV]] assembled.  Input-invalid pixels: 0 / 61,689,300
+2026-07-01 09:49:42 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:49:42 | INFO     | dop_pipeline                 |   STEP 4  |  Amplitude, Power, Phase per Polarisation
+2026-07-01 09:49:42 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:49:48 | INFO     | dop_pipeline.complex_builder |   HH: amplitude[min=0.0000e+00, max=6.4714e+04]  power[min=0.0000e+00, max=4.1879e+09]  phase[min=-3.142, max=3.142] rad
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |   [HH amplitude]
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Min    : 0.000000e+00
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Max    : 6.471436e+04
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Mean   : 1.093700e+03
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Median : 9.267493e+02
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Std    : 8.390317e+02
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     NaN    : 0
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Inf    : 0
+2026-07-01 09:49:51 | INFO     | dop_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 09:49:55 | DEBUG    | dop_pipeline.complex_builder |   Multilook HH: (19az x 3rg)  min=3.6113e+03  max=1.0918e+09
+2026-07-01 09:50:01 | INFO     | dop_pipeline.complex_builder |   HV: amplitude[min=0.0000e+00, max=1.2922e+04]  power[min=0.0000e+00, max=1.6698e+08]  phase[min=-3.142, max=3.142] rad
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |   [HV amplitude]
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Min    : 0.000000e+00
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Max    : 1.292216e+04
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Mean   : 4.775496e+02
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Median : 4.058582e+02
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Std    : 3.335065e+02
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     NaN    : 0
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Inf    : 0
+2026-07-01 09:50:04 | INFO     | dop_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 09:50:08 | DEBUG    | dop_pipeline.complex_builder |   Multilook HV: (19az x 3rg)  min=5.2335e+02  max=5.3394e+07
+2026-07-01 09:50:13 | INFO     | dop_pipeline.complex_builder |   VH: amplitude[min=0.0000e+00, max=1.1663e+04]  power[min=0.0000e+00, max=1.3603e+08]  phase[min=-3.142, max=3.142] rad
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |   [VH amplitude]
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Min    : 0.000000e+00
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Max    : 1.166324e+04
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Mean   : 4.160225e+02
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Median : 3.496840e+02
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Std    : 2.982079e+02
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     NaN    : 0
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Inf    : 0
+2026-07-01 09:50:16 | INFO     | dop_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 09:50:19 | DEBUG    | dop_pipeline.complex_builder |   Multilook VH: (19az x 3rg)  min=4.0339e+02  max=4.1766e+07
+2026-07-01 09:50:23 | INFO     | dop_pipeline.complex_builder |   VV: amplitude[min=0.0000e+00, max=6.8104e+04]  power[min=0.0000e+00, max=4.6381e+09]  phase[min=-3.142, max=3.142] rad
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |   [VV amplitude]
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Min    : 0.000000e+00
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Max    : 6.810396e+04
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Mean   : 1.170172e+03
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Median : 1.004140e+03
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Std    : 8.676033e+02
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     NaN    : 0
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Inf    : 0
+2026-07-01 09:50:36 | INFO     | dop_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 09:50:50 | DEBUG    | dop_pipeline.complex_builder |   Multilook VV: (19az x 3rg)  min=5.6901e+03  max=1.2226e+09
+2026-07-01 09:50:50 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:50:50 | INFO     | dop_pipeline                 |   STEP 5  |  Build Multilooked Covariance Matrix (C3)
+2026-07-01 09:50:50 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:50:50 | INFO     | dop_pipeline.covariance      | Building covariance matrix C3 (lexicographic basis), multilook window=(19az x 3rg) -> 57 looks
+2026-07-01 09:52:07 | INFO     | dop_pipeline.covariance      |   C11 (|HH|^2)  mean=1.9002e+06   C22 (2|XP|^2) mean=5.2216e+05   C33 (|VV|^2)  mean=2.1220e+06
+2026-07-01 09:52:07 | INFO     | dop_pipeline.covariance      |   span = trace(C3) mean=4.5444e+06
+2026-07-01 09:52:07 | INFO     | dop_pipeline                 |   C3 built in 1.3 min
+2026-07-01 09:52:07 | INFO     | dop_pipeline                 |   Single-look scattering matrix S freed from memory.
+2026-07-01 09:52:07 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:07 | INFO     | dop_pipeline                 |   STEP 6  |  Compute Stokes Parameters (S0, S1, S2, S3)
+2026-07-01 09:52:07 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:12 | INFO     | dop_pipeline.stokes          |   S0: min=6.5773e+03  max=1.0968e+09  mean=2.1612e+06
+2026-07-01 09:52:13 | INFO     | dop_pipeline.stokes          |   S1: min=-5.5204e+06  max=1.0867e+09  mean=1.6391e+06
+2026-07-01 09:52:13 | INFO     | dop_pipeline.stokes          |   S2: min=-5.3524e+07  max=8.1644e+07  mean=1.1112e+05
+2026-07-01 09:52:14 | INFO     | dop_pipeline.stokes          |   S3: min=-1.0306e+08  max=9.8468e+07  mean=8.8648e+03
+2026-07-01 09:52:20 | INFO     | dop_pipeline                 |   Stokes parameters computed in 12.69 s
+2026-07-01 09:52:20 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:20 | INFO     | dop_pipeline                 |   STEP 7  |  Compute DOP = sqrt(S1^2+S2^2+S3^2) / S0
+2026-07-01 09:52:20 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:20 | INFO     | dop_pipeline                 |   epsilon = 1e-10   nodata = -9999.0
+2026-07-01 09:52:26 | INFO     | dop_pipeline.dop             |   DOP computed: total=61,689,300  invalid=0 (0.000%)  valid=61,689,300
+2026-07-01 09:52:27 | INFO     | dop_pipeline.dop             |   DOP valid: min=0.0017  max=0.9997  mean=0.7591  median=0.7829
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 |   DOP computed in 7.59 s
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 |   STEP 8  |  Speckle Reduction via Multilook
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 |   DOP was NOT computed from single-look pixels: the covariance matrix C3 (STEP 5) was built by multilooking the per-pixel Hermitian products with a (19az x 3rg) = 57-look box-car window -- the same window used by the CPR pipeline (cpr/config.py MULTILOOK_WINDOW), so CPR and DOP are directly comparable at the same effective resolution.
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 |   STEP 9  |  DOP Statistics & Histogram Data
+2026-07-01 09:52:28 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |   [DOP]
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Min    : 1.682199e-03
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Max    : 9.997386e-01
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Mean   : 7.590997e-01
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Median : 7.828528e-01
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Std    : 1.306742e-01
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     NaN    : 0
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Inf    : 0
+2026-07-01 09:52:29 | INFO     | dop_pipeline                 |     Valid  : 61689300 / 61689300
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |   Percentiles:
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P01 = 0.3639
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P05 = 0.5089
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P10 = 0.5803
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P25 = 0.6864
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P50 = 0.7829
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P75 = 0.8564
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P90 = 0.9049
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P95 = 0.9272
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |     P99 = 0.9590
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 |   STEP 10  |  Save Preview Images
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:32 | INFO     | dop_pipeline                 | Downsample factor: 1:100
+2026-07-01 09:52:40 | INFO     | dop_pipeline.visualizer      |   Saved: HH.png  [C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\HH.png]
+2026-07-01 09:52:43 | INFO     | dop_pipeline.visualizer      |   Saved: HV.png  [C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\HV.png]
+2026-07-01 09:52:47 | INFO     | dop_pipeline.visualizer      |   Saved: VH.png  [C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\VH.png]
+2026-07-01 09:52:50 | INFO     | dop_pipeline.visualizer      |   Saved: VV.png  [C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\VV.png]
+2026-07-01 09:52:51 | INFO     | dop_pipeline.visualizer      |   Saved: DOP.png  [C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\DOP.png]
+2026-07-01 09:52:54 | INFO     | dop_pipeline.visualizer      |   Saved histogram: Histogram.png
+2026-07-01 09:52:54 | INFO     | dop_pipeline                 |   All previews saved to: C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews
+2026-07-01 09:52:54 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:54 | INFO     | dop_pipeline                 |   STEP 11  |  Save Calculated_DOP.tif
+2026-07-01 09:52:54 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:52:54 | INFO     | dop_pipeline                 | Writing Calculated_DOP.tif (244W x 252825H, float32, LZW) ...
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 |   Done in 6.50 s
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 |   Saved : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\dop\Calculated_DOP.tif
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 |   Size  : 242.3 MB
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 |   STEP 12  |  Validation Report
+2026-07-01 09:53:00 | INFO     | dop_pipeline                 | ==============================================================
+2026-07-01 09:53:01 | INFO     | dop_pipeline                 | 
+  -------------------------------------------------------
+  Chandrayaan-2 DFSAR Full-Pol SLI -> DOP Pipeline
+  -------------------------------------------------------
+  Scene         : faustini  (20210506)
+  Formula       : DOP = sqrt(S1^2+S2^2+S3^2) / S0
+                  S0 = C11 + C22/2   S1 = C11 - C22/2
+                  S2 = sqrt2*Re(C12) S3 = sqrt2*Im(C12)
+  References    : Lee & Pottier (2009); van Zyl & Kim (2011)
+
+  INPUT RASTERS
+  -------------------------------------------------------
+  Dimensions    : 244 x 252825  (range x azimuth)
+  Bands         : 2 per file (Band1=Real, Band2=Imag)
+  Dtype         : float32 (complex SLC, I/Q)
+
+  PROCESSING
+  -------------------------------------------------------
+  Multilook     : (19, 3)  az x rg  = 57 looks
+  Epsilon       : 1e-10
+
+  DOP STATISTICS
+  -------------------------------------------------------
+  Min           : 0.001682
+  Max           : 0.999739
+  Mean          : 0.759100
+  Median        : 0.782853
+  Std           : 0.130674
+  Valid pixels  : 61,689,300 / 61,689,300  (100.00%)
+  Invalid pixels: 0  (0.00%)
+  NoData        : 0
+  NaN / Inf     : 0 / 0
+
+  RESOURCE USAGE
+  -------------------------------------------------------
+  Peak tracked array memory : 5177 MB
+  Total runtime              : 5.0 min
+
+  OUTPUT FILES
+  -------------------------------------------------------
+  DOP GeoTIFF   : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\dop\Calculated_DOP.tif
+  HH/HV/VH/VV   : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\HH.png (+ HV/VH/VV)
+  DOP preview   : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\DOP.png
+  DOP histogram : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\previews\Histogram.png
+  Log file      : C:\Users\navne\Desktop\ISRO_Hackathon\dop\outputs\logs\dop_pipeline.log
+  -------------------------------------------------------
+
+2026-07-01 09:53:01 | INFO     | dop_pipeline                 | Pipeline completed successfully.
