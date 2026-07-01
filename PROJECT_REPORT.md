@@ -21,27 +21,7 @@
 **Prepared for:** ISRO Hackathon
 **Repository:** `ISRO_Hackathon`
 **Report date:** 2026-07-01
-**Status:** Working prototype, all five pipelines executed end-to-end at least once; figures below are the actual outputs of those runs (`images-final/`)
-
----
-
-## Visual Overview
-
-The three diagrams below summarise the system at a glance — the high-level
-architecture, the end-to-end data flow, and the internal fusion logic that
-produces the Ice Confidence Map. Full detail follows in Sections 3–4.
-
-**System Architecture**
-
-![System Architecture](wireframes_svg/1_system_architecture.png)
-
-**End-to-End Data Flow (Pipeline Sequence)**
-
-![End-to-End Data Flow](wireframes_svg/2_data_flow.png)
-
-**Fusion Engine — Weighted Ice Confidence Score**
-
-![Fusion Engine](wireframes_svg/3_fusion_engine.png)
+**Status:** Working prototype, all five pipelines executed end-to-end at least once. Result figures are kept in `images-final/` (referenced by section, not embedded here); this report focuses on the system diagrams, methodology, and findings.
 
 ---
 
@@ -175,9 +155,26 @@ All rasters are ultimately reprojected onto the LOLA DEM's grid: south
 polar-stereographic projection, spherical Moon datum (R = 1,737,400 m),
 20 m/pixel, 15,168 × 15,168, bounds ±151,680 m in both axes.
 
+The diagram below traces each source dataset to the physical **ice indicator**
+it produces, and shows how the official CPR mosaic is used only to *validate*
+the computed CPR (not as an input to the fusion). Reading it left-to-right
+gives the "why" behind every layer that later enters the Ice Confidence Map.
+
+![Datasets and Derived Ice Indicators](wireframes_svg/7_datasets.svg)
+
 ---
 
 ## 3. System Architecture and Repository Organisation
+
+At the highest level the system is five independent, physics-based processing
+modules feeding one fusion engine. Each of the five raw inputs is turned into a
+physical indicator, all indicators are reprojected onto the common LOLA grid,
+and a single weighted-sum fusion (no machine learning) produces the Ice
+Confidence Map, which in turn drives the decision-support applications.
+
+![System Architecture](wireframes_svg/1_system_architecture.svg)
+
+### 3.1 Repository Layout
 
 ```
 ISRO_Hackathon/
@@ -201,14 +198,42 @@ ISRO_Hackathon/
 ├── outputs/               Generated rasters and plots
 ├── images-final/          Curated figure set for this report (source of every image below)
 │
+├── wireframes_svg/       System diagrams (Mermaid → SVG/PNG) used in this report
 ├── validate_science.py    Standalone scientific validation
 ├── debug_pipeline.py / debug_psr_mask.py / debug_validation.py   Diagnostic scripts
 └── README.md / STEPS.md / COMMANDS.md   Setup, walkthrough, command reference
 ```
 
+### 3.2 Technology Stack
+
+The stack is deliberately conventional and open-source: a Python geospatial /
+SAR core (Rasterio, GDAL, GeoPandas, NumPy, with Numba/CUDA for the ray-casting
+kernel), computer-vision / ML libraries for the detection layers, and a
+web/GIS presentation tier (FastAPI + React + Leaflet) for the proposed
+dashboard. Every layer is reproducible on commodity hardware.
+
+![Technology Stack](wireframes_svg/6_tech_stack.svg)
+
+### 3.3 How It Runs (Deployment View)
+
+The pipeline itself is headless — a CLI orchestrator that auto-detects a GPU
+(Numba CUDA, ~30–90 min) and otherwise falls back to a parallel CPU path
+(~2–4 hrs), writing GeoTIFF rasters and PNG figures. The dashboard is a
+*proposed* presentation layer on top of those outputs.
+
+![Processing & Deployment View](wireframes_svg/5_deployment_view.svg)
+
 ---
 
 ## 4. Methodology
+
+The end-to-end pipeline runs as four data stages — topography, radar
+polarimetry, and thermal feeding a fusion stage — followed by the
+decision-support stage. The sequence diagram below shows every intermediate
+product (`DPSR.tif`, `CPR.tif`, `DOP.tif`, the Diviner grids) and where each
+one enters the fusion. Sections 4.1–4.6 then detail each stage in turn.
+
+![End-to-End Data Flow](wireframes_svg/2_data_flow.svg)
 
 ### 4.1 DPSR Extraction Pipeline (`dpsr/`, `pipeline/`, `dpsr_fast.py`)
 
@@ -280,6 +305,16 @@ eigenvalue parameter, TRT — total power/trace, plus GRI/SLI/SRI and their
 polarization variants) and aligns them all to the LOLA grid for a broader
 feature stack.
 
+**Rock-vs-ice discrimination.** A high CPR alone is ambiguous — both clean
+water-ice and rough blocky ejecta raise CPR above 1. The decision logic below
+resolves that ambiguity by requiring *multiple independent lines of evidence*
+to agree: a pixel is only flagged an ice candidate when high CPR is
+accompanied by low DOP (volume, not surface, scattering) **and** a
+cold-trap thermal/shadow context (PSR/DPSR + low Tmean). Any single failing
+test routes the pixel to a "rock / not-ice" class instead.
+
+![Rock vs Ice Discrimination](wireframes_svg/9_rock_vs_ice.svg)
+
 ### 4.3 SAR Polarimetry — Degree of Polarization (`dop/`)
 
 ```
@@ -319,6 +354,14 @@ score[p] = Σᵢ (normalised_band_i[p] × weight_i)  /  Σᵢ (weight_i, valid b
 Continuous bands are percentile-clipped [P2, P98] and rescaled to [0, 1];
 "low → more ice" bands are inverted before weighting.
 
+The fusion is intentionally transparent: each normalised band is multiplied by
+its literature-justified weight and summed, then divided by the sum of weights
+for the bands that are actually valid at that pixel (so partial coverage is
+handled gracefully). Because there is no learned model, any pixel's score can
+be decomposed back into its exact per-band contributions.
+
+![Fusion Engine — Weighted Ice Confidence Score](wireframes_svg/3_fusion_engine.svg)
+
 ### 4.5 Cross-Validation Module (`validation/`)
 
 Georeferences the computed CPR onto the official mosaic's grid using GCPs
@@ -327,19 +370,51 @@ every 10th azimuth row used → 7,668 GCPs), then computes Pearson r,
 Spearman ρ, RMSE, MAE, bias, R², SSIM, histogram intersection, and mutual
 information over co-valid pixels.
 
+### 4.6 Decision-Support Applications (Proposed)
+
+The Ice Confidence Map is not an end in itself — it is the input to the
+mission-planning tools below. These three applications are **proposed /
+in-progress** (the rock-vs-ice logic of §4.2 is already implemented; landing
+and rover planning are designed but not yet fully wired into the pipeline),
+and are included here to show the intended end-to-end value chain.
+
+**Landing-site selection.** Candidate sites are scored by combining *science
+value* (high ice confidence, proximity to DPSR cold traps) with *engineering
+safety* (slope < 10°, low roughness, illumination for solar power and
+Earth-communications). A weighted multi-criteria score ranks the sites and
+selects the safest high-value landing zone.
+
+![Landing-Site Selection](wireframes_svg/8_landing_site.svg)
+
+**Rover path planning.** From a chosen landing site to a target ice deposit, a
+traversability cost map is built from slope, roughness, and shadow-dwell time;
+an A\*/Dijkstra search over that cost map returns an optimal traverse that is
+safe, stays sunlit for power, and reaches the ice.
+
+![Rover Path Planning](wireframes_svg/10_rover_path.svg)
+
+**Interactive dashboard (proposed).** All layers, the ranked sites, and the
+per-site indicator readouts are surfaced through a proposed GIS dashboard so a
+mission planner can toggle layers, search by coordinate, inspect any site, and
+export GeoTIFF/CSV/report artifacts. The pipeline is headless today; this is
+the intended presentation layer.
+
+![Dashboard Wireframe](wireframes_svg/4_wireframe_dashboard.svg)
+
 ---
 
 ## 5. Results — Complete Figure-by-Figure Walkthrough
 
-All figures below are reproduced from `images-final/`, the curated output
-set for this report. Paths are given relative to the repository root.
+The figures for this section are kept in the `images-final/` directory (the
+curated output set) rather than embedded inline, to keep this report focused on
+the system design and findings. Each figure below is referenced by its file
+path, given relative to the repository root — open the corresponding file in
+`images-final/` to view it alongside the interpretation.
 
 ### 5.1 DPSR Extraction Figures
 
 **Figure 1 — DPSR pipeline summary**
 `images-final/dpsr/DPSR_summary.png`
-
-![Figure 1](images-final/dpsr/DPSR_summary.png)
 
 Four panels over the same DEM tile: (1) raw elevation (green=low, tan=high,
 craters visible as blue depressions); (2) the rasterized PSR mask (dark
@@ -355,8 +430,6 @@ spatially coherent doubly-shadowed clusters.
 **Figure 2 — DEM input (standalone)**
 `images-final/dpsr/elevation.png`
 
-![Figure 2](images-final/dpsr/elevation.png)
-
 The same elevation panel as Figure 1, saved standalone. This is the direct
 LOLA DEM crop fed into the ray-casting kernel — bowl-shaped craters
 (Shackleton-like) are the blue circular depressions; their poleward-facing
@@ -364,8 +437,6 @@ interior walls are what generate PSR.
 
 **Figure 3 — Rasterized PSR mask (standalone)**
 `images-final/dpsr/PSR_mask.png`
-
-![Figure 3](images-final/dpsr/PSR_mask.png)
 
 Binary PSR mask derived from the LOLA PSR shapefile, rasterized onto the
 DEM grid. The large dark-blue disks correspond to permanently shadowed
@@ -376,8 +447,6 @@ craters) on sun-facing walls — real PSR, just sub-crater-scale.
 **Figure 4 — DPSR raw output (standalone)**
 `images-final/dpsr/DPSR_raw.png`
 
-![Figure 4](images-final/dpsr/DPSR_raw.png)
-
 Direct ray-casting output before the connected-component filter. Visually
 almost indistinguishable from blank at this display stretch — DPSR pixels
 are such a small fraction of the frame (≈0.008% globally, §5.12/§5.10) that
@@ -387,16 +456,12 @@ visual confirmation of how rare true double-shadow is.
 **Figure 5 — DPSR final output (standalone)**
 `images-final/dpsr/DPSR.png`
 
-![Figure 5](images-final/dpsr/DPSR.png)
-
 Post-filter DPSR mask — the same sparse point pattern as Figure 4 (the
 filter removes noise, it does not add area), matching the 17,564-px count
 reported in Figure 1.
 
 **Figure 6 — Five-crater DPSR validation panel**
 `images-final/dpsr/dpsr_validation.png`
-
-![Figure 6](images-final/dpsr/dpsr_validation.png)
 
 Spot-check across five named PSR-hosting craters (Shackleton, Faustini,
 Haworth, Shoemaker, Cabeus), each row showing elevation / PSR mask / DPSR
@@ -430,17 +495,11 @@ narrower `cpr/`/`cpr_gri/` scripts.
 **Figure 7 — Aligned DEM**
 `images-final/dfsar_pipeline/DEM.png`
 
-![Figure 7](images-final/dfsar_pipeline/DEM.png)
-
 **Figure 8 — Aligned PSR mask**
 `images-final/dfsar_pipeline/PSR.png`
 
-![Figure 8](images-final/dfsar_pipeline/PSR.png)
-
 **Figure 9 — Aligned DPSR mask**
 `images-final/dfsar_pipeline/DPSR.png`
-
-![Figure 9](images-final/dfsar_pipeline/DPSR.png)
 
 Figures 7–9 are the same three foundational layers as §5.1, but reprojected
 through this pipeline's independent alignment path — a useful
@@ -449,8 +508,6 @@ cross-check that both alignment implementations (this one and
 
 **Figure 10 — Aligned official CPR mosaic (full south-pole extent)**
 `images-final/dfsar_pipeline/CPR.png`
-
-![Figure 10](images-final/dfsar_pipeline/CPR.png)
 
 The full 15,168×15,168 south-polar CPR mosaic after alignment, normalised
 to [0,1]. The radial, star-shaped coverage pattern is the DFSAR imaging
@@ -464,8 +521,6 @@ features (bottom-left, bottom-centre) are crater rim ejecta.
 **Figure 11 — Aligned SRD (Stokes Radar Decomposition)**
 `images-final/dfsar_pipeline/SRD.png`
 
-![Figure 11](images-final/dfsar_pipeline/SRD.png)
-
 Same swath geometry as Figure 10, different physical quantity (a Stokes-based
 scattering decomposition parameter). The predominance of high (orange/yellow)
 values across most illuminated terrain, with scattered low (dark
@@ -477,22 +532,14 @@ that PSR/DPSR terrain has a distinguishable polarimetric signature.
 **Figure 12 — Aligned EVN (Eigenvalue Parameter)**
 `images-final/dfsar_pipeline/EVN.png`
 
-![Figure 12](images-final/dfsar_pipeline/EVN.png)
-
 **Figure 13 — Aligned HLX (Helix Scattering)**
 `images-final/dfsar_pipeline/HLX.png`
-
-![Figure 13](images-final/dfsar_pipeline/HLX.png)
 
 **Figure 14 — Aligned ODD (Odd-bounce Scattering)**
 `images-final/dfsar_pipeline/ODD.png`
 
-![Figure 14](images-final/dfsar_pipeline/ODD.png)
-
 **Figure 15 — Aligned TRT (Total Power / Trace)**
 `images-final/dfsar_pipeline/TRT.png`
-
-![Figure 15](images-final/dfsar_pipeline/TRT.png)
 
 Figures 12–15 are the remaining Stokes-decomposition-derived DFSAR
 products, all aligned to the common grid and cataloged for a future,
@@ -504,8 +551,6 @@ yet fed into the Ice Confidence fusion).
 
 **Figure 16 — Faustini CPR map + CPR-vs-DOP scatter**
 `images-final/faustini_cpr/default/faustini_combined.png`
-
-![Figure 16](images-final/faustini_cpr/default/faustini_combined.png)
 
 Left: the CPR raster for the Faustini scene (42.5 km diameter, centred
 87.18°S), rendered on a cyclic green→blue→magenta→white colormap so that
@@ -524,17 +569,11 @@ criterion is the more specific ice-candidate signature).
 **Figure 17 — CPR histogram, Faustini**
 `images-final/faustini_cpr/default/CPR_histogram.png`
 
-![Figure 17](images-final/faustini_cpr/default/CPR_histogram.png)
-
 **Figure 18 — Same-sense (SC) power map**
 `images-final/faustini_cpr/default/SC_power.png`
 
-![Figure 18](images-final/faustini_cpr/default/SC_power.png)
-
 **Figure 19 — Opposite-sense (OC) power map**
 `images-final/faustini_cpr/default/OC_power.png`
-
-![Figure 19](images-final/faustini_cpr/default/OC_power.png)
 
 Figures 18–19 are the two intermediate power rasters (`σ_SC`, `σ_OC`) whose
 ratio defines CPR (§4.2) — shown separately so the numerator/denominator
@@ -546,12 +585,8 @@ from pure geometric/incidence-angle effects).
 **Figure 20 — Faustini crater CPR (crater-cropped view)**
 `images-final/faustini_cpr/default/faustini_crater_cpr.png`
 
-![Figure 20](images-final/faustini_cpr/default/faustini_crater_cpr.png)
-
 **Figure 21 — Default-vs-official CPR comparison, Faustini**
 `images-final/faustini_cpr/default/faustini_cpr_comparison.png`
-
-![Figure 21](images-final/faustini_cpr/default/faustini_cpr_comparison.png)
 
 Three overlaid distributions: the whole Faustini scene (grey, n=500,000
 subsample), the crater interior alone (blue, n=1,323,212), and the subset
@@ -566,22 +601,14 @@ artefact capturing noise.
 **Figure 22 — Faustini histogram panel (CPR + DOP combined)**
 `images-final/faustini_cpr/default/faustini_histograms.png`
 
-![Figure 22](images-final/faustini_cpr/default/faustini_histograms.png)
-
 **Figure 23 — CPR histogram (standalone)**
 `images-final/faustini_cpr/default/faustini_hist_cpr.png`
-
-![Figure 23](images-final/faustini_cpr/default/faustini_hist_cpr.png)
 
 **Figure 24 — DOP histogram (standalone)**
 `images-final/faustini_cpr/default/faustini_hist_dop.png`
 
-![Figure 24](images-final/faustini_cpr/default/faustini_hist_dop.png)
-
 **Figure 25 — Latitude-strip profile**
 `images-final/faustini_cpr/default/faustini_lat_strip.png`
-
-![Figure 25](images-final/faustini_cpr/default/faustini_lat_strip.png)
 
 A profile of CPR (and/or DOP) as a function of latitude/distance across
 the crater, used to check whether the ice-candidate signature clusters
@@ -592,22 +619,14 @@ than being uniformly scattered across the whole scene.
 **Figure 26 — Combined scatter, all pixels**
 `images-final/faustini_cpr/default/faustini_scatter_all.png`
 
-![Figure 26](images-final/faustini_cpr/default/faustini_scatter_all.png)
-
 **Figure 27 — Combined scatter (annotated)**
 `images-final/faustini_cpr/default/faustini_scatter_combined.png`
-
-![Figure 27](images-final/faustini_cpr/default/faustini_scatter_combined.png)
 
 **Figure 28 — Scatter, ice-candidate subset only**
 `images-final/faustini_cpr/default/faustini_scatter_ice.png`
 
-![Figure 28](images-final/faustini_cpr/default/faustini_scatter_ice.png)
-
 **Figure 29 — Scatter, non-ice subset only**
 `images-final/faustini_cpr/default/faustini_scatter_nonice.png`
-
-![Figure 29](images-final/faustini_cpr/default/faustini_scatter_nonice.png)
 
 Figures 26–29 decompose the CPR-vs-DOP relationship (Figure 16, right
 panel) into the full population, an annotated combined view, and the two
@@ -619,8 +638,6 @@ follows the ordinary inverse CPR–DOP trend of bare regolith.
 **Figure 30 — CPR overlaid with DOP context**
 `images-final/faustini_cpr/default/combined_cpr_dop.png`
 
-![Figure 30](images-final/faustini_cpr/default/combined_cpr_dop.png)
-
 ### 5.4 CPR — Faustini Crater Case Study (Published μc Research Formula)
 
 The same fourteen plots as §5.3 (minus the SC/OC power pair, which is
@@ -631,72 +648,44 @@ published CPR(μc) formula, to test it against the same Faustini scene.
 **Figure 31 — Faustini CPR(μc) map + scatter**
 `images-final/faustini_cpr/research/faustini_combined.png`
 
-![Figure 31](images-final/faustini_cpr/research/faustini_combined.png)
-
 **Figure 32 — CPR(μc) histogram**
 `images-final/faustini_cpr/research/CPR_histogram.png`
-
-![Figure 32](images-final/faustini_cpr/research/CPR_histogram.png)
 
 **Figure 33 — HH power map**
 `images-final/faustini_cpr/research/HH_power.png`
 
-![Figure 33](images-final/faustini_cpr/research/HH_power.png)
-
 **Figure 34 — VV power map**
 `images-final/faustini_cpr/research/VV_power.png`
-
-![Figure 34](images-final/faustini_cpr/research/VV_power.png)
 
 **Figure 35 — CPR(μc), crater-cropped**
 `images-final/faustini_cpr/research/faustini_crater_cpr.png`
 
-![Figure 35](images-final/faustini_cpr/research/faustini_crater_cpr.png)
-
 **Figure 36 — CPR(μc)-vs-official comparison**
 `images-final/faustini_cpr/research/faustini_cpr_comparison.png`
-
-![Figure 36](images-final/faustini_cpr/research/faustini_cpr_comparison.png)
 
 **Figure 37 — Histogram panel**
 `images-final/faustini_cpr/research/faustini_histograms.png`
 
-![Figure 37](images-final/faustini_cpr/research/faustini_histograms.png)
-
 **Figure 38 — CPR(μc) histogram (standalone)**
 `images-final/faustini_cpr/research/faustini_hist_cpr.png`
-
-![Figure 38](images-final/faustini_cpr/research/faustini_hist_cpr.png)
 
 **Figure 39 — DOP histogram (standalone, research run)**
 `images-final/faustini_cpr/research/faustini_hist_dop.png`
 
-![Figure 39](images-final/faustini_cpr/research/faustini_hist_dop.png)
-
 **Figure 40 — Latitude-strip profile (research)**
 `images-final/faustini_cpr/research/faustini_lat_strip.png`
-
-![Figure 40](images-final/faustini_cpr/research/faustini_lat_strip.png)
 
 **Figure 41 — Scatter, all pixels (research)**
 `images-final/faustini_cpr/research/faustini_scatter_all.png`
 
-![Figure 41](images-final/faustini_cpr/research/faustini_scatter_all.png)
-
 **Figure 42 — Scatter, combined (research)**
 `images-final/faustini_cpr/research/faustini_scatter_combined.png`
-
-![Figure 42](images-final/faustini_cpr/research/faustini_scatter_combined.png)
 
 **Figure 43 — Scatter, ice subset (research)**
 `images-final/faustini_cpr/research/faustini_scatter_ice.png`
 
-![Figure 43](images-final/faustini_cpr/research/faustini_scatter_ice.png)
-
 **Figure 44 — Scatter, non-ice subset (research)**
 `images-final/faustini_cpr/research/faustini_scatter_nonice.png`
-
-![Figure 44](images-final/faustini_cpr/research/faustini_scatter_nonice.png)
 
 Figures 31–44 mirror §5.3's structure exactly, using the published μc
 formula instead of the default SC/OC ratio. Producing the identical suite
@@ -709,8 +698,6 @@ table of numbers alone.
 
 **Figure 45 — Faustini inner-crater CPR: default vs. research, side-by-side**
 `images-final/faustini_cpr/zoom/zoom_compare.png`
-
-![Figure 45](images-final/faustini_cpr/zoom/zoom_compare.png)
 
 The most direct test of formula agreement: the same 13.2×6.1 km inner-crater
 zoom, CPR(Default) on the left, CPR(Research μc) on the right, with a
@@ -726,12 +713,8 @@ pixel on real terrain.
 **Figure 46 — Zoom feature maps**
 `images-final/faustini_cpr/zoom/zoom_feature_maps.png`
 
-![Figure 46](images-final/faustini_cpr/zoom/zoom_feature_maps.png)
-
 **Figure 47 — Zoom H-alpha decomposition**
 `images-final/faustini_cpr/zoom/zoom_halpha.png`
-
-![Figure 47](images-final/faustini_cpr/zoom/zoom_halpha.png)
 
 The Cloude–Pottier H-α polarimetric decomposition plane for the same
 inner-crater zoom — an independent classical scattering-mechanism
@@ -742,32 +725,20 @@ the ice-candidate area.
 **Figure 48 — Zoom histograms**
 `images-final/faustini_cpr/zoom/zoom_histograms.png`
 
-![Figure 48](images-final/faustini_cpr/zoom/zoom_histograms.png)
-
 **Figure 49 — Zoom PolSAR composite**
 `images-final/faustini_cpr/zoom/zoom_polsar.png`
-
-![Figure 49](images-final/faustini_cpr/zoom/zoom_polsar.png)
 
 **Figure 50 — Zoom PolSAR histogram**
 `images-final/faustini_cpr/zoom/zoom_polsar_hist.png`
 
-![Figure 50](images-final/faustini_cpr/zoom/zoom_polsar_hist.png)
-
 **Figure 51 — Zoom scatter, default formula**
 `images-final/faustini_cpr/zoom/zoom_scatter_default.png`
-
-![Figure 51](images-final/faustini_cpr/zoom/zoom_scatter_default.png)
 
 **Figure 52 — Zoom scatter, research formula**
 `images-final/faustini_cpr/zoom/zoom_scatter_research.png`
 
-![Figure 52](images-final/faustini_cpr/zoom/zoom_scatter_research.png)
-
 **Figure 53 — Ice-candidate spatial consistency, 9 azimuth strips**
 `images-final/faustini_cpr/ice_candidates/ice_candidate_panels.png`
-
-![Figure 53](images-final/faustini_cpr/ice_candidates/ice_candidate_panels.png)
 
 Nine independent sub-scenes (R1–R9) spanning azimuth offsets from 275 km to
 2,063 km along the Faustini-region SAR strip, each annotated with its own
@@ -779,17 +750,11 @@ a processing fluke localized to one sub-frame.
 **Figure 54 — CPR–DOP scatter (dedicated module)**
 `images-final/faustini_cpr/cpr_dop/cpr_dop_scatter.png`
 
-![Figure 54](images-final/faustini_cpr/cpr_dop/cpr_dop_scatter.png)
-
 **Figure 55 — F2 sub-crater DOP distribution**
 `images-final/faustini_cpr/f2_crater/dop_distribution.png`
 
-![Figure 55](images-final/faustini_cpr/f2_crater/dop_distribution.png)
-
 **Figure 56 — DOP formula verification maps (Faustini reference)**
 `images-final/faustini_cpr/f2_crater/dop_verification_maps.png`
-
-![Figure 56](images-final/faustini_cpr/f2_crater/dop_verification_maps.png)
 
 Left: the Faustini CPR map (same green/magenta styling as Figure 16) shown
 again purely as a spatial reference; right: the corresponding DOP map on a
@@ -802,14 +767,10 @@ reference before applying it to a new target.
 **Figure 57 — F2 sub-crater DOP verification scatter**
 `images-final/faustini_cpr/f2_crater/dop_verification_scatter.png`
 
-![Figure 57](images-final/faustini_cpr/f2_crater/dop_verification_scatter.png)
-
 ### 5.6 Degree of Polarization (DOP) Figures
 
 **Figure 58 — DOP map, full Faustini strip**
 `images-final/dop/DOP.png`
-
-![Figure 58](images-final/dop/DOP.png)
 
 The full-strip DOP raster (1:100 azimuth downsample for display), values
 mostly in the 0.7–0.95 range (yellow-green, coherent single-bounce
@@ -822,27 +783,17 @@ criterion used throughout §5.3–5.5.
 **Figure 59 — DOP histogram**
 `images-final/dop/Histogram.png`
 
-![Figure 59](images-final/dop/Histogram.png)
-
 **Figure 60 — HH channel power**
 `images-final/dop/HH.png`
-
-![Figure 60](images-final/dop/HH.png)
 
 **Figure 61 — HV (cross-pol) channel power**
 `images-final/dop/HV.png`
 
-![Figure 61](images-final/dop/HV.png)
-
 **Figure 62 — VH (reciprocity-check) channel power**
 `images-final/dop/VH.png`
 
-![Figure 62](images-final/dop/VH.png)
-
 **Figure 63 — VV channel power**
 `images-final/dop/VV.png`
-
-![Figure 63](images-final/dop/VV.png)
 
 Figures 60–63 are the four raw linear-polarization power channels used to
 build the covariance matrix C3 that feeds the Stokes-parameter derivation
@@ -853,69 +804,43 @@ check on that assumption.
 **Figure 64 — DOP, F2/faustini crater-cropped**
 `images-final/dop/faustini_crater_dop.png`
 
-![Figure 64](images-final/dop/faustini_crater_dop.png)
-
 ### 5.7 GRI-Based CPR — Default vs. Research
 
 **Figure 65 — GRI CPR map (default formula)**
 `images-final/gri_cpr/default/CPR.png`
 
-![Figure 65](images-final/gri_cpr/default/CPR.png)
-
 **Figure 66 — GRI HH power (default run)**
 `images-final/gri_cpr/default/HH.png`
-
-![Figure 66](images-final/gri_cpr/default/HH.png)
 
 **Figure 67 — GRI HV power (default run)**
 `images-final/gri_cpr/default/HV.png`
 
-![Figure 67](images-final/gri_cpr/default/HV.png)
-
 **Figure 68 — GRI VH power (default run)**
 `images-final/gri_cpr/default/VH.png`
-
-![Figure 68](images-final/gri_cpr/default/VH.png)
 
 **Figure 69 — GRI VV power (default run)**
 `images-final/gri_cpr/default/VV.png`
 
-![Figure 69](images-final/gri_cpr/default/VV.png)
-
 **Figure 70 — GRI CPR histogram (default run)**
 `images-final/gri_cpr/default/Histogram.png`
-
-![Figure 70](images-final/gri_cpr/default/Histogram.png)
 
 **Figure 71 — GRI CPR map (research μc formula)**
 `images-final/gri_cpr/research/CPR.png`
 
-![Figure 71](images-final/gri_cpr/research/CPR.png)
-
 **Figure 72 — GRI HH power (research run)**
 `images-final/gri_cpr/research/HH.png`
-
-![Figure 72](images-final/gri_cpr/research/HH.png)
 
 **Figure 73 — GRI HV power (research run)**
 `images-final/gri_cpr/research/HV.png`
 
-![Figure 73](images-final/gri_cpr/research/HV.png)
-
 **Figure 74 — GRI VH power (research run)**
 `images-final/gri_cpr/research/VH.png`
-
-![Figure 74](images-final/gri_cpr/research/VH.png)
 
 **Figure 75 — GRI VV power (research run)**
 `images-final/gri_cpr/research/VV.png`
 
-![Figure 75](images-final/gri_cpr/research/VV.png)
-
 **Figure 76 — GRI CPR(μc) histogram (research run)**
 `images-final/gri_cpr/research/Histogram.png`
-
-![Figure 76](images-final/gri_cpr/research/Histogram.png)
 
 Figures 65–76 are the multilooked ground-range (GRI) counterparts of the
 SLI-based Faustini analysis in §5.3–5.4, computed over the full GRI scene
@@ -928,8 +853,6 @@ agreement of any computed CPR product in this project (see below).
 **Figure 77 — Calculated vs. official CPR, side-by-side maps**
 `images-final/validation/validation_maps.png`
 
-![Figure 77](images-final/validation/validation_maps.png)
-
 The SLI-derived CPR (left) and the official Putrevu et al. (2023) mosaic
 (right), both reprojected onto the same south-polar stereographic grid and
 displayed on an identical [0, 2] color scale. The two crescent-shaped SAR
@@ -941,8 +864,6 @@ reported quantitatively below.
 **Figure 78 — Pixel-level scatter, calculated vs. official**
 `images-final/validation/validation_scatter.png`
 
-![Figure 78](images-final/validation/validation_scatter.png)
-
 3,270,277 co-valid pixels plotted against the 1:1 line. **r = 0.079,
 R² = −0.593, RMSE = 0.170, bias = +0.0069.** The point cloud is concentrated
 below CPR≈0.5–1.0 on both axes (consistent with the overall low-CPR
@@ -953,27 +874,17 @@ suggested visually is only a large-scale, not pixel-level, agreement.
 **Figure 79 — Spatial difference map**
 `images-final/validation/difference_map.png`
 
-![Figure 79](images-final/validation/difference_map.png)
-
 **Figure 80 — Absolute difference map**
 `images-final/validation/absolute_difference.png`
-
-![Figure 80](images-final/validation/absolute_difference.png)
 
 **Figure 81 — Value histogram comparison**
 `images-final/validation/histogram_comparison.png`
 
-![Figure 81](images-final/validation/histogram_comparison.png)
-
 **Figure 82 — Q–Q plot**
 `images-final/validation/qq_plot.png`
 
-![Figure 82](images-final/validation/qq_plot.png)
-
 **Figure 83 — Boxplot comparison**
 `images-final/validation/boxplot.png`
-
-![Figure 83](images-final/validation/boxplot.png)
 
 Figures 79–83 are the supporting diagnostic suite behind the summary
 metrics: the difference map (79) shows whether errors are spatially
@@ -1003,8 +914,6 @@ full grid):
 **Figure 84 — GRI CPR (default formula) vs. official, scatter**
 `images-final/gri_validation/default/Scatter.png`
 
-![Figure 84](images-final/gri_validation/default/Scatter.png)
-
 This is, quantitatively, **the best-correlated computed CPR product in the
 entire project**: n = 2,141,932 pixels, **Pearson r = 0.650, Spearman
 ρ = 0.695**. However the point cloud sits almost entirely *above* the 1:1
@@ -1020,17 +929,11 @@ error would not typically produce this strong a rank correlation).
 **Figure 85 — GRI default: spatial difference map**
 `images-final/gri_validation/default/Difference_map.png`
 
-![Figure 85](images-final/gri_validation/default/Difference_map.png)
-
 **Figure 86 — GRI default: histogram overlap**
 `images-final/gri_validation/default/Histogram_overlap.png`
 
-![Figure 86](images-final/gri_validation/default/Histogram_overlap.png)
-
 **Figure 87 — GRI CPR(μc) research formula vs. official, scatter**
 `images-final/gri_validation/research/Scatter.png`
-
-![Figure 87](images-final/gri_validation/research/Scatter.png)
 
 By contrast, the published μc research formula on the same GRI data
 performs **worse than either other product**: n = 2,141,158, **Pearson
@@ -1044,12 +947,8 @@ is even applied.
 **Figure 88 — GRI research: spatial difference map**
 `images-final/gri_validation/research/Difference_map.png`
 
-![Figure 88](images-final/gri_validation/research/Difference_map.png)
-
 **Figure 89 — GRI research: histogram overlap**
 `images-final/gri_validation/research/Histogram_overlap.png`
-
-![Figure 89](images-final/gri_validation/research/Histogram_overlap.png)
 
 **Three-way CPR validation summary** (all three computed products compared
 against the same Putrevu et al. 2023 official mosaic):
@@ -1063,8 +962,6 @@ against the same Putrevu et al. 2023 official mosaic):
 **Figure 90 — Official CPR mosaic, Faustini crater extract (ground truth reference)**
 `images-final/official_cpr/faustini_crater_official_cpr.png`
 
-![Figure 90](images-final/official_cpr/faustini_crater_official_cpr.png)
-
 The official Putrevu et al. (2023) CPR mosaic, cropped to the Faustini
 crater footprint — this is the ground-truth image against which every
 Faustini-area figure in §5.3–5.5 is implicitly being compared.
@@ -1077,22 +974,14 @@ final `diviner/` fusion stage, each shown as both a map and a histogram.
 **Figure 91 — DEM map**
 `images-final/diviner/DEM_map.png`
 
-![Figure 91](images-final/diviner/DEM_map.png)
-
 **Figure 92 — DEM histogram**
 `images-final/diviner/DEM_histogram.png`
-
-![Figure 92](images-final/diviner/DEM_histogram.png)
 
 **Figure 93 — Slope map**
 `images-final/diviner/Slope_map.png`
 
-![Figure 93](images-final/diviner/Slope_map.png)
-
 **Figure 94 — Slope histogram**
 `images-final/diviner/Slope_histogram.png`
-
-![Figure 94](images-final/diviner/Slope_histogram.png)
 
 Mean slope 10.0°, median 8.66° (statistics_report.csv) — a right-skewed
 distribution typical of a cratered terrain where most of the area is
@@ -1102,12 +991,8 @@ wall.
 **Figure 95 — PSR map**
 `images-final/diviner/PSR_map.png`
 
-![Figure 95](images-final/diviner/PSR_map.png)
-
 **Figure 96 — PSR histogram**
 `images-final/diviner/PSR_histogram.png`
-
-![Figure 96](images-final/diviner/PSR_histogram.png)
 
 Binary histogram: 89.2% at 0, 10.8% at 1 — matching the statistics_report.csv
 value exactly.
@@ -1115,12 +1000,8 @@ value exactly.
 **Figure 97 — DPSR map**
 `images-final/diviner/DPSR_map.png`
 
-![Figure 97](images-final/diviner/DPSR_map.png)
-
 **Figure 98 — DPSR histogram**
 `images-final/diviner/DPSR_histogram.png`
-
-![Figure 98](images-final/diviner/DPSR_histogram.png)
 
 At full-DEM scale the DPSR map is visually almost entirely empty — 0.008%
 of pixels — consistent with the sparse point patterns already seen in
@@ -1129,12 +1010,8 @@ Figures 4/5.
 **Figure 99 — CPR map (aligned, full grid)**
 `images-final/diviner/CPR_map.png`
 
-![Figure 99](images-final/diviner/CPR_map.png)
-
 **Figure 100 — CPR histogram (aligned, full grid)**
 `images-final/diviner/CPR_histogram.png`
-
-![Figure 100](images-final/diviner/CPR_histogram.png)
 
 Mean 0.267, median 0.234 (statistics_report.csv) — matching the official
 mosaic's own mean of 0.266 almost exactly, one more confirmation of good
@@ -1142,8 +1019,6 @@ aggregate/distributional (if not pixel-level) agreement.
 
 **Figure 101 — DOP map (aligned, full grid)**
 `images-final/diviner/DOP_map.png`
-
-![Figure 101](images-final/diviner/DOP_map.png)
 
 This map is **blank / all-nodata** — the visual manifestation of the 0%
 valid-pixel DOP defect documented in §7, Known Issue #1. It is included
@@ -1154,12 +1029,8 @@ pipeline, and is more convincing reproduced directly than described.
 **Figure 102 — Tmean map**
 `images-final/diviner/Tmean_map.png`
 
-![Figure 102](images-final/diviner/Tmean_map.png)
-
 **Figure 103 — Tmean histogram**
 `images-final/diviner/Tmean_histogram.png`
-
-![Figure 103](images-final/diviner/Tmean_histogram.png)
 
 Mean 98.0 K, median 98.9 K, std 30.9 K — a broad, roughly symmetric
 temperature distribution reflecting the wide range of illumination
@@ -1168,12 +1039,8 @@ conditions from permanently sunlit ridges to permanently shadowed floors.
 **Figure 104 — ZIT map**
 `images-final/diviner/ZIT_map.png`
 
-![Figure 104](images-final/diviner/ZIT_map.png)
-
 **Figure 105 — ZIT histogram**
 `images-final/diviner/ZIT_histogram.png`
-
-![Figure 105](images-final/diviner/ZIT_histogram.png)
 
 Heavily right-skewed (median 0.055, mean 0.067), with 80.15% coverage —
 the missing 20% is where zero-incidence geometry was never achieved during
@@ -1182,12 +1049,8 @@ the Diviner observation campaign for that pixel.
 **Figure 106 — Pump map**
 `images-final/diviner/Pump_map.png`
 
-![Figure 106](images-final/diviner/Pump_map.png)
-
 **Figure 107 — Pump histogram**
 `images-final/diviner/Pump_histogram.png`
-
-![Figure 107](images-final/diviner/Pump_histogram.png)
 
 Left-skewed (median 0.799, mean 0.665) — most valid pixels show
 moderate-to-high cold-trapping efficiency, with a long low tail; 62.84%
@@ -1197,10 +1060,6 @@ coverage.
 `images-final/diviner_previews/Tmean_preview.png`,
 `images-final/diviner_previews/ZIT_preview.png`,
 `images-final/diviner_previews/Pump_preview.png`
-
-![Figure 108](images-final/diviner_previews/Tmean_preview.png)
-![Figure 109](images-final/diviner_previews/ZIT_preview.png)
-![Figure 110](images-final/diviner_previews/Pump_preview.png)
 
 These three are the raw Diviner rasters as originally ingested (native
 grid/CRS, before reprojection onto the LOLA grid) — comparing them against
@@ -1213,17 +1072,11 @@ reprojection.
 **Figure 111 — CPR vs. Tmean scatter**
 `images-final/diviner/scatter_CPR_vs_Tmean.png`
 
-![Figure 111](images-final/diviner/scatter_CPR_vs_Tmean.png)
-
 **Figure 112 — CPR vs. ZIT scatter**
 `images-final/diviner/scatter_CPR_vs_ZIT.png`
 
-![Figure 112](images-final/diviner/scatter_CPR_vs_ZIT.png)
-
 **Figure 113 — Tmean vs. Pump scatter**
 `images-final/diviner/scatter_Tmean_vs_Pump.png`
-
-![Figure 113](images-final/diviner/scatter_Tmean_vs_Pump.png)
 
 These three cross-band scatter plots were intended to sanity-check whether
 the radar (CPR) and thermal (Tmean, ZIT, Pump) evidence lines are at least
@@ -1234,8 +1087,6 @@ of the ice-confidence weighting scheme.
 `outputs/diviner/Correlation_Matrix.png` (not yet copied into `images-final/`
 at the time of writing — referenced directly from the pipeline's raw
 output directory)
-
-![Figure 114](outputs/diviner/Correlation_Matrix.png)
 
 This figure surfaces a **second, previously undocumented integration
 defect**, distinct from the DOP-coverage issue: **every single off-diagonal
@@ -1257,12 +1108,8 @@ an inconclusive result.
 **Figure 115 — IceConfidence map (downsampled, first render)**
 `images-final/diviner/IceConfidence_map.png`
 
-![Figure 115](images-final/diviner/IceConfidence_map.png)
-
 **Figure 116 — IceConfidence histogram**
 `images-final/diviner/IceConfidence_histogram.png`
-
-![Figure 116](images-final/diviner/IceConfidence_histogram.png)
 
 Mean 0.438, median 0.483, std 0.160 (statistics_report.csv) — a broad,
 slightly left-skewed distribution spanning the full theoretical [0,1]
@@ -1273,8 +1120,6 @@ direction.
 
 **Figure 117 — Ice Confidence Map (full-resolution, primary deliverable)**
 `images-final/diviner/Ice_Confidence_Map.png`
-
-![Figure 117](images-final/diviner/Ice_Confidence_Map.png)
 
 This is the project's headline deliverable: the physics-based, per-pixel
 Ice Confidence Score across the full south-polar LOLA grid (1:7 subsample

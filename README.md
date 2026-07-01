@@ -1,53 +1,54 @@
-# DPSR Extraction Pipeline — Lunar South Pole
+# Multi-Sensor Detection of Water-Ice Stability Zones at the Lunar South Pole
 
-Detects **Directly Persistently Shadowed Regions (DPSR)** at the lunar south pole using physically based solar ray-casting on the LOLA DEM.
+A physics-based fusion of **topographic shadow modelling**, **Chandrayaan-2
+DFSAR radar polarimetry**, and **LRO Diviner thermal data** into a single,
+explainable **Ice Confidence Map** covering the full south-polar LOLA DEM
+(15,168 × 15,168 px @ 20 m/px ≈ 230 million pixels).
 
-A pixel is DPSR if it lies inside a PSR **and** no ray toward the sun clears the surrounding terrain from any azimuth across the lunar year.
+No single instrument can prove lunar ice on its own — topographic shadow does
+not guarantee ice, high radar backscatter comes from ice *or* rough rock, and
+low temperature alone does not indicate volatile delivery. This project derives
+four physically distinct indicators from three independent NASA/ISRO datasets
+and fuses them with a transparent, literature-weighted score (**no machine
+learning in the fusion step**).
+
+> ⚠️ **Work in progress.** A functional first version runs end-to-end and
+> produces real outputs, but it is not final — we are actively optimising for
+> better accuracy and fixing the known issues listed below. See
+> [`PROJECT_REPORT.md`](PROJECT_REPORT.md) for the full write-up and diagrams.
 
 ---
 
-## What It Does
+## Pipeline at a Glance
 
-| Step | Description | Output |
-|------|-------------|--------|
-| 1 | Load LOLA DEM (15168×15168, 20 m/px) | in memory |
-| 2 | Rasterize LOLA PSR shapefile | `results/PSR_mask.tif` |
-| 3 | Compute slope and aspect | `results/slope.tif`, `results/aspect.tif` |
-| 4 | Compute hillshade (visualisation) | `results/hillshade.tif` |
-| 5 | Solar shadow map via ray-casting | `results/illumination.tif` |
-| 6 | DPSR classification (Numba / CUDA) | `results/DPSR.tif` |
-| 7 | Spot-check validation | printed to console |
+| Stage | Module(s) | Input | Output |
+|------|-----------|-------|--------|
+| 1 · Topography | [`dpsr/`](dpsr/), [`pipeline/`](pipeline/), `dpsr_fast.py` | LOLA DEM + PSR shapefile | PSR / DPSR masks, slope |
+| 2 · Radar (CPR) | [`cpr/`](cpr/), `cpr_gri/`, `cpr_official/`, [`DFSAR/`](DFSAR/) | Chandrayaan-2 DFSAR | `CPR.tif` |
+| 3 · Radar (DOP) | [`dop/`](dop/) | Chandrayaan-2 DFSAR | `DOP.tif` |
+| 4 · Validation | [`validation/`](validation/) | computed CPR + official mosaic | metrics + plots |
+| 5 · Fusion | [`diviner/`](diviner/) | all 9 bands + Diviner thermal | **Ice Confidence Map** |
+
+Full architecture, data-flow, fusion, rock-vs-ice, landing-site, rover-path,
+dashboard, deployment, and tech-stack diagrams live in
+[`wireframes_svg/`](wireframes_svg/) and are embedded in the report.
+
+![System Architecture](wireframes_svg/1_system_architecture.svg)
 
 ---
 
-## Project Structure
+## Datasets
 
-```
-ISRO_Hackathon/
-├── data/                   Input data (do not modify)
-│   ├── ldem_85s_20m_float.lbl       LOLA DEM — PDS3 label
-│   ├── ldem_85s_20m_float.img       LOLA DEM — binary data
-│   └── LPSR_80S_20MPP_ADJ.shp  PSR shapefile (80°S–90°S, 20 m/px)
-├── pipeline/               Modular pipeline steps
-│   ├── utils.py                Shared constants & paths
-│   ├── step01_load.py          DEM + PSR loading
-│   ├── step02_precompute_rays.py   Bresenham ray tables
-│   ├── step03_numba_raytrace.py    Numba DPSR kernel
-│   ├── step04_parallel_processing.py  Multiprocessing fallback
-│   ├── step05_generate_dpsr.py    CPU pipeline entry point
-│   ├── step06_gpu_dpsr.py         CUDA GPU entry point
-│   └── step_illumination.py       Solar shadow map
-├── notebooks/
-│   ├── 01_basic_pipeline.ipynb    Step-by-step exploration
-│   └── 02_full_pipeline.ipynb     Optimised Numba pipeline
-├── docs/                   Reference documents (DFSAR, OHRC manuals)
-├── results/                Output rasters (.tif)
-├── images/                 Output plots (.png)
-├── main.py                 Single entry point — runs all 7 steps
-├── dpsr_fast.py            Self-contained single-file version
-├── COMMANDS.md             Full commands reference
-└── STEPS.md                Step-by-step guide from scratch
-```
+| Dataset | File | Provider | Used for |
+|---------|------|----------|----------|
+| LOLA polar DEM | `ldem_85s_20m_float` (.lbl/.img) | PDS Geosciences | Ray-tracing, slope, grid |
+| LOLA PSR mask | `LPSR_80S_20MPP_ADJ.shp` | LOLA PSR product | Shadow ground truth |
+| Chandrayaan-2 DFSAR | SLI / GRI / SRI | ISRO SAR payload | CPR, DOP |
+| Official CPR mosaic | `CPR.tif` | Putrevu et al. (2023) | Validation reference |
+| LRO Diviner | Tmean · ZIT · Pump | Diviner polar products | Thermal stability |
+
+All rasters are reprojected to the LOLA grid: south polar-stereographic,
+spherical Moon (R = 1,737,400 m), 20 m/px, 15,168², bounds ±151,680 m.
 
 ---
 
@@ -57,108 +58,79 @@ ISRO_Hackathon/
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install rasterio numpy geopandas matplotlib scipy numba
+python -m pip install rasterio numpy geopandas matplotlib scipy numba scikit-image pandas
 ```
 
 Verify:
 ```powershell
-python -c "import rasterio, numpy, geopandas, matplotlib, numba; print('All OK')"
+python -c "import rasterio, numpy, geopandas, matplotlib, numba, skimage; print('All OK')"
 ```
 
 ---
 
-## Usage
+## Running the Modules
+
+Each module is self-contained and has its own `README.md` with details. Typical order:
 
 ```powershell
-# Auto-detect GPU; fall back to CPU
-python main.py
+# 1 · DPSR (topographic shadow)           → results/DPSR.tif
+python main.py --annual --gpu             # or: python -m dpsr.run_pipeline
 
-# Annual illumination — all 72 sun azimuths (best accuracy, slowest)
-python main.py --annual
+# 2 · CPR (radar circular-polarization)   → cpr/outputs/
+python cpr/main.py
 
-# Force CPU (Numba parallel)
-python main.py --cpu
+# 3 · DOP (degree of polarization)        → dop/outputs/
+python dop/main.py
 
-# Force GPU (Numba CUDA)
-python main.py --gpu
+# 4 · Validation (computed vs official)   → validation/outputs/
+python validation/main.py
 
-# Recompute everything from scratch
-python main.py --redo
-
-# Annual + GPU — best accuracy, fastest runtime
-python main.py --annual --gpu
-```
-
-Steps are skipped automatically if their output file already exists.
-
----
-
-## Key Parameters
-
-Edit in `pipeline/utils.py` (or at the top of `dpsr_fast.py`):
-
-| Parameter | Default | Meaning |
-|-----------|---------|---------|
-| `SUN_ELEVATION` | `1.54°` | Peak solar elevation at 89.5°S |
-| `SUN_AZIMUTH` | `0.0°` | 0 = North, 90 = East (single-epoch only) |
-| `MAX_DISTANCE` | `2500 px` | Ray length — 2500 × 20 m = 50 km |
-| `N_ANGLES` | `72` | DPSR rays per pixel (one every 5°) |
-| `CELLSIZE` | `20.0 m` | DEM pixel size |
-
----
-
-## Expected Runtimes
-
-| Mode | Shadow Map | DPSR Step | Total |
-|------|-----------|-----------|-------|
-| CPU (single epoch) | 1–3 min | 1–5 min | ~5–10 min |
-| CPU (annual, 72 azimuths) | 1–3 hrs | 1–5 min | ~2–4 hrs |
-| GPU (annual) | 20–60 min | 30–120 sec | ~30–90 min |
-
-> First run takes ~20 s extra for Numba JIT compilation. Subsequent runs skip it.
-
----
-
-## Output
-
-| File | Description |
-|------|-------------|
-| `results/PSR_mask.tif` | Rasterized PSR shapefile (uint8) |
-| `results/slope.tif` | Slope in degrees (float32) |
-| `results/aspect.tif` | Aspect in degrees (float32) |
-| `results/hillshade.tif` | Hillshade — visualisation only |
-| `results/illumination.tif` | Solar shadow map — 1 = lit, 0 = shadowed |
-| `results/DPSR.tif` | **Final DPSR map** — 1 = persistently shadowed |
-| `images/DPSR_summary.png` | PSR / illumination / DPSR comparison plot |
-
-Quick check after a run:
-```powershell
-python -c "
-import rasterio, numpy as np
-with rasterio.open('results/DPSR.tif') as ds:
-    d = ds.read(1)
-    print('DPSR pixels:', np.sum(d == 1))
-    print('DPSR %     :', round(np.mean(d==1)*100, 3))
-"
+# 5 · Fusion (Ice Confidence Map)         → outputs/diviner/
+python diviner/main.py
 ```
 
 ---
 
-## Data Sources
+## Module Map
 
-- **DEM**: LOLA 20 m/pixel polar DEM — `ldem_85s_20m_float` (PDS3 format)
-- **PSR shapefile**: `LPSR_80S_20MPP_ADJ.shp` — permanently shadowed regions from 80°S to 90°S, 20 m/px resolution
+| Module | Purpose | README |
+|--------|---------|--------|
+| `dpsr/` | Canonical modular DPSR pipeline (O'Brien & Byrne 2022) | [dpsr/README.md](dpsr/README.md) |
+| `pipeline/` | Legacy/first DPSR pipeline + illumination | [pipeline/README.md](pipeline/README.md) |
+| `cpr/` | Circular Polarization Ratio from DFSAR SLI + Faustini studies | [cpr/README.md](cpr/README.md) |
+| `dop/` | Degree of Polarization (Stokes / covariance) | [dop/README.md](dop/README.md) |
+| `DFSAR/` | Raw DFSAR product ingestion + 18-raster feature stack | [DFSAR/README.md](DFSAR/README.md) |
+| `validation/` | Georeference + quantitative CPR validation | [validation/README.md](validation/README.md) |
+| `diviner/` | Diviner thermal + fusion → Ice Confidence Map | [diviner/README.md](diviner/README.md) |
 
 ---
 
-## Troubleshooting
+## Known Issues (being fixed)
 
-| Problem | Fix |
-|---------|-----|
-| `ModuleNotFoundError` | Run `.\venv\Scripts\Activate.ps1` first |
-| `PermissionError` on .tif | Close QGIS or Jupyter, then retry |
-| GPU not detected | Use `python main.py --cpu` |
-| Numba compilation error | Delete `pipeline/__pycache__`, rerun |
-| DPSR = 0 pixels | Check `results/illumination.tif` — may be all zeros |
+1. **DOP does not yet reach the fusion** — computed correctly in isolation but
+   shows 0 valid pixels in the aligned stack (path/CRS/nodata mismatch).
+2. **Correlation matrix all N/A** — `diviner/visualizer.py` not receiving
+   co-registered arrays.
+3. **`DFSAR/data_pipeline` Unicode crash** on Windows cp1252 console.
+4. **CPR pixel-level correlation** is strong only for GRI-default (r = 0.65)
+   but with a large additive bias (+0.97); bias correction is the next step.
 
-See `COMMANDS.md` for the full commands reference and `STEPS.md` for a detailed walkthrough.
+Full details in [`PROJECT_REPORT.md`](PROJECT_REPORT.md) §7.
+
+---
+
+## Documentation
+
+- [`PROJECT_REPORT.md`](PROJECT_REPORT.md) — full scientific report + diagrams
+- [`STEPS.md`](STEPS.md) — step-by-step walkthrough from scratch
+- [`COMMANDS.md`](COMMANDS.md) — full command reference
+- [`wireframes_svg/`](wireframes_svg/) — system diagrams (Mermaid sources + SVG/PNG)
+
+---
+
+## Key References
+
+- O'Brien & Byrne (2022), *Double Shadows at the Lunar Poles*, PSJ 3, 258.
+- Putrevu et al. (2023), *Chandrayaan-2 DFSAR Full-Pol Observations*, JGR Planets.
+- Paige et al. (2010), *Diviner Cold Traps*, Science 330, 479.
+- Nozette et al. (1996); Campbell et al. (2006); van Zyl & Kim (2011) — radar CPR/DOP.
