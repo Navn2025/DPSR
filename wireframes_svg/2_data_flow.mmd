@@ -1,0 +1,38 @@
+flowchart LR
+    subgraph S1["1 · TOPOGRAPHY"]
+        direction TB
+        T1["Load LOLA DEM"] --> T2["Rasterize PSR mask"]
+        T2 --> T3["Precompute Bresenham rays<br/>N_ANGLES=360, MAX_DIST=2500px"]
+        T3 --> T4["Curvature-corrected<br/>visibility ray-cast"]
+        T4 --> T5["Remove &lt;5px regions"]
+        T5 --> T6[("DPSR.tif")]
+    end
+
+    subgraph S2["2 · RADAR POLARIMETRY"]
+        direction TB
+        R1["Read DFSAR HH/HV/VH/VV"] --> R2["Build scattering matrix"]
+        R2 --> R3["σ_SC / σ_OC → CPR"]
+        R2 --> R4["Stokes → DOP"]
+        R3 --> R5[("CPR.tif")]
+        R4 --> R6[("DOP.tif")]
+    end
+
+    subgraph S3["3 · THERMAL"]
+        direction TB
+        H1["Load Diviner grids"] --> H2[("Tmean · ZIT · Pump")]
+    end
+
+    subgraph S4["4 · FUSION"]
+        direction TB
+        F1["Align all 9 bands<br/>to LOLA grid"] --> F2["Percentile-clip + normalise"]
+        F2 --> F3["Weighted sum<br/>Σ wᵢ·bandᵢ"]
+        F3 --> F4[("Ice Confidence Map")]
+    end
+
+    T6 --> F1
+    R5 --> F1
+    R6 --> F1
+    H2 --> F1
+
+    classDef db fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20,font-weight:bold;
+    class T6,R5,R6,H2,F4 db;

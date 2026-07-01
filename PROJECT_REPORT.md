@@ -9,6 +9,26 @@
 
 ---
 
+## Visual Overview
+
+The three diagrams below summarise the system at a glance — the high-level
+architecture, the end-to-end data flow, and the internal fusion logic that
+produces the Ice Confidence Map. Full detail follows in Sections 3–4.
+
+**System Architecture**
+
+![System Architecture](wireframes_svg/1_system_architecture.png)
+
+**End-to-End Data Flow (Pipeline Sequence)**
+
+![End-to-End Data Flow](wireframes_svg/2_data_flow.png)
+
+**Fusion Engine — Weighted Ice Confidence Score**
+
+![Fusion Engine](wireframes_svg/3_fusion_engine.png)
+
+---
+
 ## Abstract
 
 Permanently shadowed regions (PSRs) near the lunar poles are cold traps

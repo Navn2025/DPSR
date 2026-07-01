@@ -1,0 +1,47 @@
+flowchart LR
+    subgraph SRC["🛰️ SOURCE DATASETS (ISRO / NASA)"]
+        direction TB
+        D1["LOLA DEM<br/>PDS Geosciences<br/>15168×15168 @ 20 m/px"]
+        D2["LOLA PSR Shapefile<br/>80°S – 90°S"]
+        D3["Chandrayaan-2 DFSAR<br/>ISRO · Full-pol L-band<br/>SLI / GRI / SRI"]
+        D4["Official CPR Mosaic<br/>Putrevu et al. 2023"]
+        D5["LRO Diviner<br/>Tmean · ZIT · Pump"]
+    end
+
+    subgraph IND["🔬 DERIVED INDICATOR"]
+        direction TB
+        I1["Elevation / Slope"]
+        I2["PSR + DPSR mask<br/>double shadow"]
+        I3["CPR<br/>radar backscatter"]
+        I4["DOP<br/>depolarization"]
+        I6["Thermal cold-trap<br/>stability"]
+        I5["Validation reference"]
+    end
+
+    subgraph FUS["🧮 FUSION OUTPUT"]
+        Z["Ice Confidence Map<br/>+ Ranked Sites"]
+    end
+
+    D1 --> I1
+    D1 --> I2
+    D2 --> I2
+    D3 --> I3
+    D3 --> I4
+    D5 --> I6
+    D4 --> I5
+
+    I1 --> Z
+    I2 --> Z
+    I3 --> Z
+    I4 --> Z
+    I6 --> Z
+    I5 -. validates .-> I3
+
+    classDef src fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
+    classDef ind fill:#fff3e0,stroke:#e65100,color:#bf360c;
+    classDef val fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c;
+    classDef fus fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20,font-weight:bold;
+    class D1,D2,D3,D4,D5 src;
+    class I1,I2,I3,I4,I6 ind;
+    class I5 val;
+    class Z fus;

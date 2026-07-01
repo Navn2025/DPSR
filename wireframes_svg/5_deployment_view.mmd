@@ -1,0 +1,12 @@
+flowchart TB
+    U["User / Mission Planner"] -->|"python main.py --annual --gpu"| CLI["CLI Orchestrator"]
+    CLI --> GPU{"GPU<br/>available?"}
+    GPU -->|Yes| CUDA["Numba CUDA kernel<br/>~30–90 min"]
+    GPU -->|No| CPU["Numba parallel CPU<br/>~2–4 hrs"]
+    CUDA --> R["results/*.tif"]
+    CPU --> R
+    R --> V["images-final/*.png<br/>figures + Ice Confidence Map"]
+    V --> DASH["Dashboard / Report"]
+
+    classDef node fill:#e3f2fd,stroke:#1565c0;
+    class U,CLI,CUDA,CPU,R,V,DASH node;

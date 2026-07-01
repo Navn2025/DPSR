@@ -1,0 +1,29 @@
+flowchart LR
+    subgraph IN["Aligned & Normalised Bands"]
+        direction TB
+        b1["CPR&nbsp;&nbsp;&nbsp;HIGH→ice"]
+        b2["Tmean&nbsp;LOW→ice"]
+        b3["ZIT&nbsp;&nbsp;&nbsp;LOW→ice"]
+        b4["Pump&nbsp;&nbsp;HIGH→ice"]
+        b5["DOP&nbsp;&nbsp;&nbsp;LOW→ice"]
+        b6["PSR&nbsp;&nbsp;&nbsp;binary"]
+        b7["DPSR&nbsp;&nbsp;binary"]
+        b8["Slope&nbsp;LOW→ice"]
+    end
+
+    b1 -->|"×0.20"| SUM
+    b2 -->|"×0.20"| SUM
+    b3 -->|"×0.15"| SUM
+    b4 -->|"×0.13"| SUM
+    b5 -->|"×0.12"| SUM
+    b6 -->|"×0.10"| SUM
+    b7 -->|"×0.05"| SUM
+    b8 -->|"×0.05"| SUM
+
+    SUM["Σ (bandᵢ × wᵢ)<br/>÷ Σ wᵢ (valid only)"] --> SCORE["Ice Confidence<br/>0.0 ——— 1.0"]
+    SCORE --> RANK["Ranked Candidate Sites"]
+
+    classDef band fill:#fff3e0,stroke:#e65100;
+    classDef calc fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c,font-weight:bold;
+    class b1,b2,b3,b4,b5,b6,b7,b8 band;
+    class SUM,SCORE,RANK calc;
